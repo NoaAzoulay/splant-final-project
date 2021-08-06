@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "847795081748",
+    "project_id": "splant-noa",
+    "storage_bucket": "splant-noa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847795081748:android:420ff1fcbb1c1ad8090d01",
+        "android_client_info": {
+          "package_name": "com.example.noa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "847795081748-ek3iq7ssjgmbv9vski3m4a2825387frj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.noa",
+            "certificate_hash": "82c7113445b8fd9eb9318dd06f83836356b97648"
+          }
+        },
+        {
+          "client_id": "847795081748-c6bbaecgmaabsjnhbeg9b8eqbjpbmfnj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbuJoPDSIoIISdP_nwWeL15VVVwAQdqUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "847795081748-c6bbaecgmaabsjnhbeg9b8eqbjpbmfnj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
