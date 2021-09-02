@@ -10,6 +10,7 @@ Future<bool> showAlertDialog(
       String cancelActionText,
 }) {
   if (!Platform.isIOS) {
+    //costum dialog for android OS
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -28,6 +29,7 @@ Future<bool> showAlertDialog(
       ),
     );
   }
+  //costom dialog for ios OS
   return showCupertinoDialog(
     context: context,
     builder: (context) => CupertinoAlertDialog(

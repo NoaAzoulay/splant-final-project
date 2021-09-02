@@ -21,10 +21,10 @@ class Plant {
       return null;
     }
     final String name = data['name'];
-    final double airHumidity = data['Air Humidity'];
-    final double soilHumidity = data['Soil Humidity'];
-    final double uv = data['UV'];
-    final double tmp = data['Temperature'];
+    final double airHumidity = (data['Air Humidity'] as int)?.toDouble() ?? 0.0;
+    final double soilHumidity = (data['Soil Humidity'] as int)?.toDouble() ?? 0.0;
+    final double uv = (data['UV'] as int)?.toDouble() ?? 0.0;
+    final double tmp = (data['Temperature'] as int)?.toDouble() ?? 0.0;
     final String image = data['image'];
     return Plant(
       name: name,
