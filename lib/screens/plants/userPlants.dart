@@ -9,6 +9,7 @@ import 'package:noa/services/DataBase.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/plant.dart';
+import 'addMyOwnPlant.dart';
 
 class UsersPlants extends StatelessWidget {
   Future<void> _signOut(BuildContext context) async {
@@ -40,6 +41,7 @@ class UsersPlants extends StatelessWidget {
       appBar: AppBar(
         title: Text('My Plants'),
         actions: [
+          //TODO move from here
           TextButton(
             onPressed: () => _confirmSignOut(context),
             child: Text('Logout'),
@@ -47,15 +49,36 @@ class UsersPlants extends StatelessWidget {
         ],
       ),
       body: _buildContents(context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => AddPlant.show(context),
-        child: Icon(Icons.add),
-        backgroundColor: Colors.green,
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () => AddPlant.show(context),
+            child: Icon(Icons.add),
+            backgroundColor: Colors.green,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          //custom add plant
+          Tooltip(
+            message: 'Add your own plant',
+            child: FloatingActionButton(
+              //TODO
+              onPressed: () => AddMyOwnPlant.show(context), //AddPlant.show(context),
+              child: Icon(Icons.post_add_rounded),
+              backgroundColor: Colors.green[700],
+              heroTag: true,
+            ),
+          ),
+
+        ],
       ),
     );
   }
 
-  //show a list of the user plants
+
+  //show the list of the users plants
   Widget _buildContents(BuildContext context) {
     final database = Provider.of<DataBase>(context, listen: false);
     return StreamBuilder<List<Plant>>(

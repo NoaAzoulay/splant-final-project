@@ -22,6 +22,7 @@ class AddPlant extends StatefulWidget {
 class _AddPlantState extends State<AddPlant> {
   Future getPlantsFuture = FirestoreDB.getPlants();
   List<Plant> plants;
+  List<Plant> my_plants;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class _AddPlantState extends State<AddPlant> {
       appBar: AppBar(
         elevation: 2.0,
         backgroundColor: Colors.green,
-        title: Text('New Plant'),
+        title: Text('Choose Plant'),
       ),
       body: _buildContent(),
     );
@@ -57,7 +58,6 @@ class _AddPlantState extends State<AddPlant> {
             itemBuilder: (context, i) => ListTile(
                   selectedTileColor: Colors.green[200],
                   leading: CircleAvatar(
-                    //  TODO add webUrl to each plant
                     backgroundImage: NetworkImage(
                       plants[i].image,
                     ),
@@ -75,21 +75,12 @@ class _AddPlantState extends State<AddPlant> {
                   trailing: SizedBox(
                     height: 27,
                     width: 25,
-                    child: FloatingActionButton(
-                      //when pressing the + icon
-                      onPressed: () => addPlantToUserList(),
-                      //  TODO add the plant to users plants list
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                      backgroundColor: Colors.green[500],
-
-                      mini: true,
-                      elevation: 0,
-                      splashColor: Colors.white,
-                    ),
+                     child:IconButton(
+                       icon: Icon(Icons.add,
+                       size: 20,
+                           color: Colors.green,),
+                       onPressed: ()=>{} //addPlantToUserList(),
+                     ),
                   ),
 //when tapping the plants name
                   onTap: () {
@@ -111,5 +102,13 @@ class _AddPlantState extends State<AddPlant> {
     );
   }
 
-  void addPlantToUserList() {}
+  //  void addPlantToUserList() {
+  //    //my_plants.DataBase.
+  //
+  //    my_plants.add(plants.single);
+  //    FirestoreDB.usersDB.doc('plants').update([my_plants.toString()]);
+  //
+  //
+  //
+  // }
 }

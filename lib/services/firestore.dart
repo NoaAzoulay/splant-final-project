@@ -5,8 +5,7 @@ import 'package:noa/models/plant.dart';
 class FirestoreDB {
   static final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   static final plantsDB = firebaseFirestore.collection('plants');
-
-  //static final usersDB = firebaseFirestore.collection('users');
+  static final usersDB = firebaseFirestore.collection('users');
 
   static Future<List<Plant>> getPlants() async {
     // get the data from DB

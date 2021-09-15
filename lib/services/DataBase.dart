@@ -10,6 +10,8 @@ abstract class DataBase {
   Stream<List<Plant>> plantsStream();
 
 }
+//generating unique id
+String docIdFromCurrentDate()=>DateTime.now().toIso8601String();
 
 class FirestoreDataBase implements DataBase {
   final String uid;
@@ -17,10 +19,10 @@ class FirestoreDataBase implements DataBase {
 
   FirestoreDataBase({this.uid}) : assert(uid != null);
 
-
+//user add plant
   Future<void> addNewPlant(Plant plant) =>
       _service.setData(
-        path: APIPath.plant(uid, 'plant_123'),
+        path: APIPath.plant(uid, docIdFromCurrentDate()),
         data: plant.toMap(),
       );
 
