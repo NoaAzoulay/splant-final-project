@@ -5,15 +5,20 @@ import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:noa/common_widgets/custom_elevated_button.dart';
 import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
+import 'package:noa/models/user.dart';
 import 'package:noa/screens/signIn/EmailSignIn.dart';
 import 'package:noa/screens/signIn/SignInManager.dart';
+import 'package:noa/screens/signIn/addUser.dart';
 import 'package:noa/services/Auth.dart';
+import 'package:noa/services/firestore.dart';
 import 'package:provider/provider.dart';
 
 class signInUp extends StatelessWidget {
   final SignInManager manager;
   final bool isLoading;
-  const signInUp({Key key, this.manager, this.isLoading}) : super(key: key);
+  bool isRegister = false;
+
+  signInUp({Key key, this.manager, this.isLoading,this.isRegister,}) : super(key: key);
 
   //create sign in page
   static Widget create(BuildContext context) {
@@ -33,6 +38,7 @@ class signInUp extends StatelessWidget {
     );
   }
 
+  final bool isSignedIn= false;
   void _showSignInError(BuildContext context, Exception exception) {
     if (exception is FirebaseException &&
         exception.code == 'ERROR_ABORTED_BY_USER') {
@@ -54,7 +60,7 @@ class signInUp extends StatelessWidget {
 
   Future<void> _signInAnonymously(BuildContext context) async {
     try {
-      await manager.signInAnonymously();
+     await manager.signInAnonymously();
     } on Exception catch (e) {
       _showSignInError(context, e);
     }
@@ -63,7 +69,6 @@ class signInUp extends StatelessWidget {
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
       await manager.signInWithGoogle();
-
     } on Exception catch (e) {
       _showSignInError(context, e);
     }
@@ -139,8 +144,10 @@ class signInUp extends StatelessWidget {
             bgcolor: MaterialStateProperty.all<Color>(Colors.grey[200]),
             borderColor: Colors.grey[200],
             radius: 4.0,
-            onPressed: isLoading ? null : () => _signInWithGoogle(context),
-          ),
+            onPressed: isLoading ? null : () =>
+                // Provider.of<LoginProvider>(context, listen: false)
+                // .signInWithGoogle(context, isRegister)),
+                _signInWithGoogle(context)),
           SizedBox(
             height: 8,
           ),

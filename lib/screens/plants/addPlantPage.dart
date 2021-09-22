@@ -1,13 +1,24 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:animations/animations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
 import 'package:noa/models/plant.dart';
-import 'package:noa/screens/plants/plantsDetails.dart';
+import 'package:noa/models/user.dart';
+import 'package:noa/screens/plants/plantsDetailsCard.dart';
 import 'package:noa/services/API_Path.dart';
+import 'package:noa/services/DataBase.dart';
 import 'package:noa/services/firestore.dart';
 
 class AddPlant extends StatefulWidget {
+  Plant plant;
+  DataBase dataBase;
+
+
   static Future<void> show(BuildContext context) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
@@ -21,8 +32,13 @@ class AddPlant extends StatefulWidget {
 
 class _AddPlantState extends State<AddPlant> {
   Future getPlantsFuture = FirestoreDB.getPlants();
+ // Future getUsersPlant = FirestoreDB.getUserPlants();
   List<Plant> plants;
-  List<Plant> my_plants;
+  User currentUser= FirebaseAuth.instance.currentUser;
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+  //TODO
+  // List<Plant> my_plants;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +71,8 @@ class _AddPlantState extends State<AddPlant> {
         plants = snapshot.data;
         return ListView.builder(
             itemCount: plants.length,
-            itemBuilder: (context, i) => ListTile(
+            itemBuilder: (context, i) =>
+                ListTile(
                   selectedTileColor: Colors.green[200],
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(
@@ -75,25 +92,28 @@ class _AddPlantState extends State<AddPlant> {
                   trailing: SizedBox(
                     height: 27,
                     width: 25,
-                     child:IconButton(
-                       icon: Icon(Icons.add,
-                       size: 20,
-                           color: Colors.green,),
-                       onPressed: ()=>{} //addPlantToUserList(),
-                     ),
-                  ),
+                      child: IconButton(
+                        icon: Icon(Icons.add,
+                          size: 20,
+                          color: Colors.green,),
+                        onPressed: () => addPlantToUserList(plants[i]),
+                      ),
+                    ),
 //when tapping the plants name
                   onTap: () {
                     Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (context) => OpenContainer(
+                          builder: (context) =>
+                              OpenContainer(
                                 //TODO check if i need openbuilder
                                 closedBuilder:
                                     (context, VoidCallback openContainer) =>
-                                        PlantsDetails(
-                                  plant: plants[i],
-                                ),
+                                    PlantsDetails(
+                                      plant: plants[i],
+                                      //TODO fix it
+                                    ),
+                                openBuilder: (BuildContext context, void Function({Object returnValue}) action) {  },
                               )),
                     );
                   },
@@ -102,13 +122,28 @@ class _AddPlantState extends State<AddPlant> {
     );
   }
 
-  //  void addPlantToUserList() {
-  //    //my_plants.DataBase.
-  //
-  //    my_plants.add(plants.single);
-  //    FirestoreDB.usersDB.doc('plants').update([my_plants.toString()]);
-  //
-  //
-  //
-  // }
+
+   Future<void> addPlantToUserList(Plant plant) async {
+     try {
+       //TODO check if all data should be saved
+       users.doc(currentUser.uid).collection('plants').doc(plant.id).set({
+         'name': plant.name,
+         'image': plant.image,
+         'soil humidity': plant.soilHumidity,
+         'air humidity': plant.airHumidity,
+         'uv': plant.uv,
+         'temperature': plant.tmp,
+       }).then((value) => addToList(plant));
+       print('plant added');
+      Navigator.of(context).pop();
+     } on FirebaseException catch (e) {
+       showExceptionAlertDialog(context,
+           title: 'An Error occurred, please try again', exception: e);
+    }
+   }
+
+  void addToList(Plant plant) {
+    UserData userData;
+    userData.userPlantsList.add(plant.image);
+  }
 }

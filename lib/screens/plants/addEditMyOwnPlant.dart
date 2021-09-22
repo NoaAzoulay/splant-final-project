@@ -4,33 +4,49 @@ import 'package:flutter/material.dart';
 import 'package:noa/common_widgets/showAlertDialog.dart';
 import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
 import 'package:noa/models/plant.dart';
+import 'package:noa/screens/plants/plantsDetailsCard.dart';
 import 'package:noa/services/DataBase.dart';
 import 'package:provider/provider.dart';
 
-class AddMyOwnPlant extends StatefulWidget {
+class AddEditMyOwnPlant extends StatefulWidget {
   final DataBase dataBase;
-  const AddMyOwnPlant({Key key, this.dataBase}) : super(key: key);
+  final Plant plant;
+  const AddEditMyOwnPlant({Key key, this.dataBase, this.plant}) : super(key: key);
 
-  static Future<void> show(BuildContext context) async {
+  static Future<void> show(BuildContext context, {Plant plant}) async {
     final dataBase = Provider.of<DataBase>(context, listen: false);
     await Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => AddMyOwnPlant(
+        builder: (context) => //PlantsDetails(plant: plant,),
+            AddEditMyOwnPlant(
               dataBase: dataBase,
+          plant: plant,
             ),
         fullscreenDialog: true));
   }
 
   @override
-  _AddMyOwnPlantState createState() => _AddMyOwnPlantState();
+  _AddEditMyOwnPlantState createState() => _AddEditMyOwnPlantState();
 }
 
-class _AddMyOwnPlantState extends State<AddMyOwnPlant> {
+class _AddEditMyOwnPlantState extends State<AddEditMyOwnPlant> {
   final _formKey = GlobalKey<FormState>();
   String name;
-  double soilHum;
-  double airHum;
-  double uv;
-  double tmp;
+  int soilHum;
+  int airHum;
+  int uv;
+  int tmp;
+
+  @override
+  void initState(){
+    super.initState();
+    if(widget.plant!= null){
+      name = widget.plant.name;
+      soilHum= widget.plant.soilHumidity;
+      airHum= widget.plant.airHumidity;
+      uv= widget.plant.uv;
+      tmp= widget.plant.tmp;
+    }
+  }
 
   bool _validateAndSaveForm() {
     final form = _formKey.currentState;
@@ -52,13 +68,15 @@ class _AddMyOwnPlantState extends State<AddMyOwnPlant> {
               content: 'Please choose a different plant name',
               defaultActionText: 'OK');
         } else {
+          final id = widget.plant?.id ?? docIdFromCurrentDate();
           final myPlant = Plant(
               name: name,
               soilHumidity: soilHum,
               airHumidity: airHum,
               uv: uv,
-              tmp: tmp);
-          await widget.dataBase.addNewPlant(myPlant);
+              tmp: tmp,
+              id: id);
+          await widget.dataBase.addNewCustomPlant(myPlant);
           Navigator.of(context).pop();
         }
       } on FirebaseException catch (e) {
@@ -66,7 +84,7 @@ class _AddMyOwnPlantState extends State<AddMyOwnPlant> {
             title: 'An Error occurred, please try again', exception: e);
       }
     }
-    //TODO validate and save form to firestore
+
   }
 
   @override
@@ -75,7 +93,7 @@ class _AddMyOwnPlantState extends State<AddMyOwnPlant> {
       appBar: AppBar(
         elevation: 2,
         backgroundColor: Colors.green,
-        title: Text('Add My Own Plant'),
+        title: Text(widget.plant == null ? 'Add My Own Plant': 'Edit Plant\'s details'),
         actions: <Widget>[
           TextButton(
             onPressed: () => _submit(),
@@ -119,31 +137,36 @@ class _AddMyOwnPlantState extends State<AddMyOwnPlant> {
     return [
       TextFormField(
         decoration: InputDecoration(labelText: 'name \ nickname'),
+        initialValue: name,
         onSaved: (value) => name = value,
         validator: (val) => val.isNotEmpty ? null : 'Name can\'t be empty',
       ),
       TextFormField(
         decoration: InputDecoration(labelText: 'soil humidity (%)'),
+        initialValue: '$soilHum',
         keyboardType: TextInputType.number,
-        onSaved: (value) => soilHum = int.tryParse(value).toDouble() ?? 0.0,
+        onSaved: (value) => soilHum = int.tryParse(value),
         validator: (val) =>
             val.isNotEmpty ? null : 'Soil humidity can\'t be empty',
       ),
       TextFormField(
         decoration: InputDecoration(labelText: 'air humidity (%)'),
+        initialValue: '$airHum',
         keyboardType: TextInputType.number,
-        onSaved: (value) => airHum = int.tryParse(value).toDouble() ?? 0.0,
+        onSaved: (value) => airHum = int.tryParse(value),
       ),
       TextFormField(
         decoration: InputDecoration(labelText: 'uv \ sun (1-5)'),
+        initialValue: '$uv',
         keyboardType: TextInputType.number,
-        onSaved: (value) => uv = int.tryParse(value).toDouble() ?? 0.0,
+        onSaved: (value) => uv = int.tryParse(value) ,
         validator: (val) => val.isNotEmpty ? null : 'uv can\'t be empty',
       ),
       TextFormField(
         decoration: InputDecoration(labelText: 'Temperature (C)'),
+        initialValue: '$tmp',
         keyboardType: TextInputType.number,
-        onSaved: (value) => tmp = int.tryParse(value).toDouble() ?? 0.0,
+        onSaved: (value) => tmp = int.tryParse(value),
         validator: (val) =>
             val.isNotEmpty ? null : 'temperature can\'t be empty',
       ),

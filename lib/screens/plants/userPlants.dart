@@ -1,52 +1,34 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:noa/common_widgets/carouselSlider.dart';
 import 'package:noa/common_widgets/showAlertDialog.dart';
 import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
 import 'package:noa/screens/plants/addPlantPage.dart';
+import 'package:noa/screens/plants/plantListTile.dart';
+import 'package:noa/screens/plants/plantsDetailsCard.dart';
 import 'package:noa/services/Auth.dart';
 import 'package:noa/services/DataBase.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/plant.dart';
-import 'addMyOwnPlant.dart';
+import 'addEditMyOwnPlant.dart';
 
 class UsersPlants extends StatelessWidget {
-  Future<void> _signOut(BuildContext context) async {
-    try {
-      final auth = Provider.of<AuthBase>(context, listen: false);
 
-      await auth.signOut();
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future<void> _confirmSignOut(BuildContext context) async {
-    final didRequestSignOut = await showAlertDialog(
-      context,
-      title: 'Logout',
-      content: 'Are you sure that you want to Logout?',
-      cancelActionText: 'Cancel',
-      defaultActionText: 'Logout',
-    );
-    if (didRequestSignOut == true) {
-      _signOut(context);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('My Plants'),
-        actions: [
-          //TODO move from here
-          TextButton(
-            onPressed: () => _confirmSignOut(context),
-            child: Text('Logout'),
-          )
-        ],
+        // actions: [
+        //   //TODO move from here
+        //   TextButton(
+        //     onPressed: () => _confirmSignOut(context),
+        //     child: Text('Logout'),
+        //   )
+        // ],
       ),
       body: _buildContents(context),
       floatingActionButton: Column(
@@ -65,20 +47,19 @@ class UsersPlants extends StatelessWidget {
             message: 'Add your own plant',
             child: FloatingActionButton(
               //TODO
-              onPressed: () => AddMyOwnPlant.show(context), //AddPlant.show(context),
+              onPressed: () => AddEditMyOwnPlant.show(context), //AddPlant.show(context),
               child: Icon(Icons.post_add_rounded),
               backgroundColor: Colors.green[700],
               heroTag: true,
             ),
           ),
-
         ],
       ),
     );
   }
 
 
-  //show the list of the users plants
+  //show the list of the user's plants
   Widget _buildContents(BuildContext context) {
     final database = Provider.of<DataBase>(context, listen: false);
     return StreamBuilder<List<Plant>>(
@@ -86,13 +67,21 @@ class UsersPlants extends StatelessWidget {
       builder: (context, snapshot){
         if(snapshot.hasData){
           final plants = snapshot.data;
-          final children = plants.map((plant)=> Text(plant.name)).toList();
-         // final image = plants.map((plant)=> Text(plant.image)).toString();
+          final children = plants.map((plant)=>
+              PlantListTile(plant: plant,
+                onTap: ()=>
+                   // PlantsDetails(plant: plant)),)
+          AddEditMyOwnPlant.show(context, plant: plant),))
+              .toList();
+          //final List<Text> imageList = plants.map((plant)=> Text(plant.image)).toList();
           //the way the plants will be shown
-          return ListView(children:children);
-         // return ManuallyControlledSlider();
+         return ListView(children:children);
+         //return ManuallyControlledSlider();
         }
-        if (snapshot.hasError){
+        if(!snapshot.hasData){
+          return Center(child: Text('it\'s empty here!\nadd new plants'));
+        }
+       if (snapshot.hasError){
           return Center(child: Text('Some Error Occurred'),);
         }
         return Center(child: CircularProgressIndicator());

@@ -1,12 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:noa/screens/plants/userPlants.dart';
+import 'package:noa/screens/signIn/addUser.dart';
 import 'package:noa/screens/signIn/sign_in_up.dart';
+import 'package:noa/screens/userScreens/ButtomNavigationBar.dart';
+import 'package:noa/screens/userScreens/userProfile.dart';
 import 'package:noa/services/Auth.dart';
 import 'package:noa/services/DataBase.dart';
 import 'package:provider/provider.dart';
 
 class LandingPage extends StatelessWidget {
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,11 @@ class LandingPage extends StatelessWidget {
           return Provider<DataBase>(
             create: (_)=> FirestoreDataBase(
               uid: user.uid),
-              child: UsersPlants());
+              child: //HomeScreen()
+              //UsersPlants()
+            BottomNavigation(),
+              //UserProfilePage()
+          );
         }
         return Scaffold(
           body: Center(

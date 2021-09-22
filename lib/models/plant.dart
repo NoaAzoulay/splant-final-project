@@ -1,11 +1,12 @@
 //option to add a plant which doesnt exist in DB
 class Plant {
   final String name;
-  final double soilHumidity;
-  final double airHumidity;
-  final double uv;
-  final double tmp;
+  final int soilHumidity;
+  final int airHumidity;
+  final int uv;
+  final int tmp;
   final String image;
+  final String id;
 
   Plant(
       {this.name,
@@ -13,18 +14,19 @@ class Plant {
       this.airHumidity,
       this.uv,
       this.tmp,
-      this.image});
+      this.image,
+      this.id});
 
   //return data only if there are data (dont rebuild if not)
-  factory Plant.fromMap(Map<String, dynamic> data){
+  factory Plant.fromMap(Map<String, dynamic> data, String docID){
     if (data==null){
       return null;
     }
     final String name = data['name'];
-    final double airHumidity = (data['Air Humidity'] as int)?.toDouble() ?? 0.0;
-    final double soilHumidity = (data['Soil Humidity'] as int)?.toDouble() ?? 0.0;
-    final double uv = (data['UV'] as int)?.toDouble() ?? 0.0;
-    final double tmp = (data['Temperature'] as int)?.toDouble() ?? 0.0;
+    final int airHumidity = (data['Air Humidity'] as int);
+    final int soilHumidity = (data['Soil Humidity'] as int);
+    final int uv = (data['UV'] as int);
+    final int tmp = (data['Temperature'] as int);
     final String image = data['image'];
     return Plant(
       name: name,
@@ -33,6 +35,7 @@ class Plant {
       uv: uv,
       tmp: tmp,
       image: image,
+      id: docID,
     );
   }
 

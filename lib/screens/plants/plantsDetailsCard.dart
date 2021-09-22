@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:noa/models/plant.dart';
 
-//TODO add information about plants , add links to images in firestore, add closing to cards
+//TODO add information about plants , add closing to cards
 class PlantsDetails extends StatelessWidget {
   final Plant plant;
   PlantsDetails({this.plant});
@@ -21,7 +21,7 @@ class PlantsDetails extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  buildImage(),
+                    buildImage(),
                   SizedBox(
                     height: 15,
                   ),
@@ -96,7 +96,7 @@ class PlantsDetails extends StatelessWidget {
           Row(
             children: [
               Text(
-                plant.airHumidity.toInt().toString(),
+                plant.airHumidity.toString(),
                 style: TextStyle(
                     fontFamily: 'IndieFlower',
                     fontSize: 20,
@@ -130,7 +130,7 @@ class PlantsDetails extends StatelessWidget {
           Row(
             children: [
               Text(
-                plant.soilHumidity.toInt().toString(),
+                plant.soilHumidity.toString(),
                 style: TextStyle(
                     fontFamily: 'IndieFlower',
                     fontSize: 20,
@@ -164,7 +164,7 @@ class PlantsDetails extends StatelessWidget {
           Row(
             children: [
               Text(
-                plant.tmp.toInt().toString(),
+                plant.tmp.toString(),
                 style: TextStyle(
                   fontFamily: 'IndieFlower',
                   fontSize: 20,
@@ -197,7 +197,7 @@ class PlantsDetails extends StatelessWidget {
             height: 10,
           ),
           Text(
-            plant.uv.toInt().toString(),
+            plant.uv.toString(),
             style: TextStyle(
                 fontFamily: 'IndieFlower',
                 fontSize: 20,

@@ -18,21 +18,13 @@ class Home extends StatefulWidget {
 }
 class _HomeState extends State<Home> {
 
-  //final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
   @override
   Widget build(BuildContext context) {
-   // return FutureBuilder(
-      // Initialize FlutterFire:
-     // future: _initialization,
-     // builder: (context, snapshot) {
-        // Check for errors
-       // if (snapshot.hasError) {
-       //   return SomethingWentWrong();
-       // }
-
-        // Once complete, show your application
-       // if (snapshot.connectionState == ConnectionState.done) {
+  // return MultiProvider(
+  // providers: [
+  // ChangeNotifierProvider<LoginProvider>(create: (_) => LoginProvider()),
+  // ChangeNotifierProvider<RegisterProfileProvider>(
+  // create: (_) => RegisterProfileProvider()),],
           return Provider<AuthBase>(
             create: (context)=>Auth(),
             child: MaterialApp(
@@ -40,7 +32,6 @@ class _HomeState extends State<Home> {
                 primaryColor: Colors.green[100],
               ),
               home: LandingPage(
-
               ),
 // body: Center(
 //   child: Image(

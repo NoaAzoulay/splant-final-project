@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class AuthBase {
   User get currentUser;
+
   Future<void> signOut();
   Stream<User> authStateChanges();
   Future<User> signInAnonymously();
@@ -14,9 +16,13 @@ abstract class AuthBase {
 }
 
 class Auth implements AuthBase {
-  final _firebaseAuth = FirebaseAuth.instance;
+  GoogleSignInAccount _user;
+  GoogleSignInAccount get user => _user;
   Stream<User> authStateChanges() => _firebaseAuth.authStateChanges();
+  final _firebaseAuth = FirebaseAuth.instance;
   User get currentUser => _firebaseAuth.currentUser;
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+
   Future<User> signInAnonymously() async {
     final userCredential = await _firebaseAuth.signInAnonymously();
     return userCredential.user;
@@ -27,12 +33,19 @@ class Auth implements AuthBase {
     final googleUser = await googleSignIn.signIn();
     if (googleUser != null) {
       final googleAuth = await googleUser.authentication;
+      _user = googleUser;
       if (googleAuth.idToken != null) {
         final userCredential = await _firebaseAuth
             .signInWithCredential(GoogleAuthProvider.credential(
           idToken: googleAuth.idToken,
           accessToken: googleAuth.accessToken,
         ));
+        //adding user to users collection and set the doc id to users id
+        users.doc(userCredential.user.uid).set({
+          'name': userCredential.user.displayName,
+          'email': userCredential.user.email,
+          'id': userCredential.user.uid
+        }).then((value) => print('user added'));
         return userCredential.user;
       } else {
         throw FirebaseAuthException(
