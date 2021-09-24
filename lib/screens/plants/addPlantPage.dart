@@ -13,11 +13,11 @@ import 'package:noa/screens/plants/plantsDetailsCard.dart';
 import 'package:noa/services/API_Path.dart';
 import 'package:noa/services/DataBase.dart';
 import 'package:noa/services/firestore.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AddPlant extends StatefulWidget {
   Plant plant;
   DataBase dataBase;
-
 
   static Future<void> show(BuildContext context) async {
     await Navigator.of(context).push(
@@ -32,13 +32,9 @@ class AddPlant extends StatefulWidget {
 
 class _AddPlantState extends State<AddPlant> {
   Future getPlantsFuture = FirestoreDB.getPlants();
- // Future getUsersPlant = FirestoreDB.getUserPlants();
   List<Plant> plants;
-  User currentUser= FirebaseAuth.instance.currentUser;
+  User currentUser = FirebaseAuth.instance.currentUser;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-  //TODO
-  // List<Plant> my_plants;
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +67,7 @@ class _AddPlantState extends State<AddPlant> {
         plants = snapshot.data;
         return ListView.builder(
             itemCount: plants.length,
-            itemBuilder: (context, i) =>
-                ListTile(
+            itemBuilder: (context, i) => ListTile(
                   selectedTileColor: Colors.green[200],
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(
@@ -92,29 +87,23 @@ class _AddPlantState extends State<AddPlant> {
                   trailing: SizedBox(
                     height: 27,
                     width: 25,
-                      child: IconButton(
-                        icon: Icon(Icons.add,
+                    child: IconButton(
+                        icon: Icon(
+                          Icons.add,
                           size: 20,
-                          color: Colors.green,),
-                        onPressed: () => addPlantToUserList(plants[i]),
-                      ),
-                    ),
+                          color: Colors.green,
+                        ),
+                        onPressed: () => addSerialNum(context, i)),
+                  ),
 //when tapping the plants name
                   onTap: () {
                     Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (context) =>
-                              OpenContainer(
-                                //TODO check if i need openbuilder
-                                closedBuilder:
-                                    (context, VoidCallback openContainer) =>
-                                    PlantsDetails(
-                                      plant: plants[i],
-                                      //TODO fix it
-                                    ),
-                                openBuilder: (BuildContext context, void Function({Object returnValue}) action) {  },
-                              )),
+                        builder: (context) => PlantsDetails(
+                          plant: plants[i],
+                        ),
+                      ),
                     );
                   },
                 ));
@@ -122,28 +111,76 @@ class _AddPlantState extends State<AddPlant> {
     );
   }
 
-
-   Future<void> addPlantToUserList(Plant plant) async {
-     try {
-       //TODO check if all data should be saved
-       users.doc(currentUser.uid).collection('plants').doc(plant.id).set({
-         'name': plant.name,
-         'image': plant.image,
-         'soil humidity': plant.soilHumidity,
-         'air humidity': plant.airHumidity,
-         'uv': plant.uv,
-         'temperature': plant.tmp,
-       }).then((value) => addToList(plant));
-       print('plant added');
+  Future<void> addPlantToUserList(Plant plant, String num) async {
+    try {
+      users.doc(currentUser.uid).collection('plants').doc(plant.id).set({
+        'name': plant.name,
+        'image': plant.image,
+        'Soil Humidity': plant.soilHumidity,
+        'Air Humidity': plant.airHumidity,
+        'UV': plant.uv,
+        'Temperature': plant.tmp,
+        'serial': num,
+      }).then((value) => addToList(plant));
+      print('plant added');
+      notifyServer();
       Navigator.of(context).pop();
-     } on FirebaseException catch (e) {
-       showExceptionAlertDialog(context,
-           title: 'An Error occurred, please try again', exception: e);
+    } on FirebaseException catch (e) {
+      showExceptionAlertDialog(context,
+          title: 'An Error occurred, please try again', exception: e);
     }
-   }
+  }
 
+//images list
   void addToList(Plant plant) {
     UserData userData;
     userData.userPlantsList.add(plant.image);
   }
+
+  void addSerialNum(context, i) {
+    String serialNum;
+    Alert(
+        context: context,
+        title: "Insert Splant-box number:",
+        style: AlertStyle(
+          titleStyle: TextStyle(
+              fontFamily: 'IndieFlower',
+              fontSize: 25,
+              color: Colors.green[800],
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2),
+        ),
+        content: Column(
+          children: <Widget>[
+            TextField(
+              onChanged: (String val) => serialNum = val,
+              decoration: InputDecoration(
+                  helperText: ' Find it on your box\'es side ',
+                  helperStyle: TextStyle(
+                      color: Colors.green,
+                      fontSize: 20,
+                      fontFamily: 'IndieFlower',
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2)),
+            ),
+          ],
+        ),
+        buttons: [
+          DialogButton(
+            color: Colors.green[800],
+            onPressed: () => addPlantToUserList(plants[i], serialNum),
+            child: Text(
+              "submit",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontFamily: 'IndieFlower',
+                  letterSpacing: 2),
+            ),
+          )
+        ]).show();
+  }
+
+//TODO
+  void notifyServer() {}
 }

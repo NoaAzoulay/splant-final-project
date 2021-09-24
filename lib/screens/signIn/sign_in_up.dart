@@ -2,15 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:noa/common_widgets/custom_elevated_button.dart';
 import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
-import 'package:noa/models/user.dart';
 import 'package:noa/screens/signIn/EmailSignIn.dart';
 import 'package:noa/screens/signIn/SignInManager.dart';
-import 'package:noa/screens/signIn/addUser.dart';
 import 'package:noa/services/Auth.dart';
-import 'package:noa/services/firestore.dart';
 import 'package:provider/provider.dart';
 
 class signInUp extends StatelessWidget {
@@ -48,15 +44,7 @@ class signInUp extends StatelessWidget {
         title: 'Sign in Failed', exception: exception);
   }
 
-  Widget _buildHeader() {
-    if (isLoading) {
-      return Center(
-        child: CircularProgressIndicator(
-          color: Colors.green,
-        ),
-      );
-    }
-  }
+
 
   Future<void> _signInAnonymously(BuildContext context) async {
     try {
@@ -89,6 +77,16 @@ class signInUp extends StatelessWidget {
         builder: (context) => EmailSignIn(),
       ),
     );
+  }
+
+  Widget _buildHeader() {
+    if (isLoading) {
+      return Center(
+        child: CircularProgressIndicator(
+          color: Colors.green,
+        ),
+      );
+    }
   }
 
   @override

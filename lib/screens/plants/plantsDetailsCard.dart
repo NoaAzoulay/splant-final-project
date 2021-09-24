@@ -1,62 +1,82 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:noa/models/plant.dart';
 
-//TODO add information about plants , add closing to cards
+//TODO add information about plants
 class PlantsDetails extends StatelessWidget {
   final Plant plant;
   PlantsDetails({this.plant});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-            side: BorderSide(color: Colors.green, width: 2)),
+    return
+      Container(
+        color: Colors.white38,
         child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                    buildImage(),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  buildText(context),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
+          padding: const EdgeInsets.all(20.0),
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+                side: BorderSide(color: Colors.green, width: 2)),
+            child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: 15,
+                      //x button
+                      Container(
+                        height: 33,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green, width: 2),
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.close),
+                          alignment: Alignment.center,
+                          onPressed: Navigator.of(context).pop,
+                          iconSize: 15,
+                          color: Colors.green,
+                        ),
                       ),
-                      airHumidityIcon(),
                       SizedBox(
-                        width: 15,
+                        height: 20,
                       ),
-                      soilHumidityIcon(),
+                      buildImage(),
                       SizedBox(
-                        width: 15,
+                        height: 20,
                       ),
-                      tempIcon(),
+                      buildText(context),
                       SizedBox(
-                        width: 15,
+                        height: 20,
                       ),
-                      uvIcon()
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          soilHumidityIcon(),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          tempIcon(),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          uvIcon()
+                        ],
+                      )
                     ],
-                  )
-                ],
-              ),
-            )
-            //Text(plant.name),
-            ),
-      ),
-    );
+                  ),
+                )
+                //Text(plant.name),
+                ),
+
+    ),
+        ),
+      );
   }
 
   Widget buildImage() => Image.network(
@@ -76,39 +96,38 @@ class PlantsDetails extends StatelessWidget {
         ),
       );
 
-  Widget airHumidityIcon() => Column(
-        verticalDirection: VerticalDirection.down,
-        children: [
-          SizedBox(
-            width: 50,
-            height: 45,
-            child: Tooltip(
-              message: 'Air humidity',
-              child: Image.asset(
-                ('assets/icons/air_hum.png'),
-                fit: BoxFit.fitHeight,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              Text(
-                plant.airHumidity.toString(),
-                style: TextStyle(
-                    fontFamily: 'IndieFlower',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green
-                ),
-              ),
-              Text('%'),
-            ],
-          )
-        ],
-      );
+  // Widget airHumidityIcon() => Column(
+  //       verticalDirection: VerticalDirection.down,
+  //       children: [
+  //         SizedBox(
+  //           width: 50,
+  //           height: 45,
+  //           child: Tooltip(
+  //             message: 'Air humidity',
+  //             child: Image.asset(
+  //               ('assets/icons/air_hum.png'),
+  //               fit: BoxFit.fitHeight,
+  //             ),
+  //           ),
+  //         ),
+  //         SizedBox(
+  //           height: 10,
+  //         ),
+  //         Row(
+  //           children: [
+  //             Text(
+  //               plant.airHumidity.toString(),
+  //               style: TextStyle(
+  //                   fontFamily: 'IndieFlower',
+  //                   fontSize: 20,
+  //                   fontWeight: FontWeight.bold,
+  //                   color: Colors.green),
+  //             ),
+  //             Text('%'),
+  //           ],
+  //         )
+  //       ],
+  //     );
 
   Widget soilHumidityIcon() => Column(
         verticalDirection: VerticalDirection.down,
@@ -118,10 +137,10 @@ class PlantsDetails extends StatelessWidget {
             height: 50,
             child: Tooltip(
               message: 'soil humidity',
-              child: Image.asset(
-                ('assets/icons/soil_hum.png'),
-                fit: BoxFit.fitHeight,
-              ),
+              child:
+                Icon(FontAwesomeIcons.fillDrip,
+                size: 35,
+                color: Colors.lightBlueAccent,)
             ),
           ),
           SizedBox(
@@ -131,14 +150,9 @@ class PlantsDetails extends StatelessWidget {
             children: [
               Text(
                 plant.soilHumidity.toString(),
-                style: TextStyle(
-                    fontFamily: 'IndieFlower',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green
-                ),
+                style: textStyle(),
               ),
-              Text('%'),
+              Text(' %'),
             ],
           )
         ],
@@ -152,12 +166,12 @@ class PlantsDetails extends StatelessWidget {
             height: 50,
             child: Tooltip(
               message: 'Temperature',
-              child: Image.asset(
-                ('assets/icons/temp.jpg'),
-                fit: BoxFit.fitHeight,
+              child: Icon(FontAwesomeIcons.thermometerEmpty,
+                color: Colors.orangeAccent,
+                size: 40,
               ),
             ),
-          ),
+              ),
           SizedBox(
             height: 10,
           ),
@@ -165,14 +179,9 @@ class PlantsDetails extends StatelessWidget {
             children: [
               Text(
                 plant.tmp.toString(),
-                style: TextStyle(
-                  fontFamily: 'IndieFlower',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green
-                ),
+                style: textStyle(),
               ),
-              Text('   ')
+              Text(' C', style: textStyle(),)
             ],
           ),
         ],
@@ -181,30 +190,30 @@ class PlantsDetails extends StatelessWidget {
   Widget uvIcon() => Column(
         verticalDirection: VerticalDirection.down,
         children: [
-           SizedBox(
-              width: 50,
-              height: 50,
-              child: Tooltip(
-                message: 'uv in range 1-5',
-                child: Image.asset(
-                  ('assets/icons/uv.png'),
-                  fit: BoxFit.fitHeight,
-                ),
+          SizedBox(
+            width: 50,
+            height: 50,
+            child: Tooltip(
+              message: 'uv in range 1-5',
+              child: Icon(FontAwesomeIcons.sun,
+                size: 40,
+                color: Colors.yellowAccent,
               ),
             ),
-
+          ),
           SizedBox(
             height: 10,
           ),
           Text(
             plant.uv.toString(),
-            style: TextStyle(
-                fontFamily: 'IndieFlower',
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.green
-            ),
+            style: textStyle(),
           ),
         ],
       );
+
+  TextStyle textStyle()=>  TextStyle(
+      fontFamily: 'IndieFlower',
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      color: Colors.green);
 }
