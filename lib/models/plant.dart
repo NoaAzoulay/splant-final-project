@@ -7,6 +7,7 @@ class Plant {
   final int tmp;
   final String image;
   final String id;
+  final String serial;
 
   Plant(
       {this.name,
@@ -15,7 +16,8 @@ class Plant {
       this.uv,
       this.tmp,
       this.image,
-      this.id});
+      this.id,
+      this.serial});
 
   //return data only if there are data (dont rebuild if not)
   factory Plant.fromMap(Map<String, dynamic> data, String docID){
@@ -28,6 +30,8 @@ class Plant {
     final int uv = (data['UV'] as int);
     final int tmp = (data['Temperature'] as int);
     final String image = data['image'];
+    final String serial = data['serial'];
+
     return Plant(
       name: name,
       airHumidity: airHumidity,
@@ -36,6 +40,8 @@ class Plant {
       tmp: tmp,
       image: image,
       id: docID,
+    serial: serial
+
     );
   }
 
@@ -44,9 +50,10 @@ class Plant {
       'name': name,
       'soilHumidity': soilHumidity,
       'airHumidity': airHumidity,
-      'UV': uv,
+      'uv': uv,
       'temperature': tmp,
       'image': image,
+      'serial': serial
     };
   }
 }

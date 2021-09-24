@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:noa/screens/LandingPage.dart';
+import 'package:noa/screens/userScreens/LandingPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:noa/services/Auth.dart';
 import 'package:provider/provider.dart';

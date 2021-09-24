@@ -1,10 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as cloud_firestore;
-import 'package:noa/models/plant.dart';
 
-import 'package:noa/services/Auth.dart';
-import 'package:noa/services/firestore.dart';
 
 class UserData {
  String userEmail;
