@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:noa/common_widgets/FormedSubmitButton.dart';
 import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
-import 'package:noa/screens/signIn/validators.dart';
 import 'package:noa/services/Auth.dart';
+import 'package:noa/services/signIn/validators.dart';
 import 'package:provider/provider.dart';
 import 'EmailSignInModel.dart';
 

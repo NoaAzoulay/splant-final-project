@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:noa/screens/signIn/sign_in_up.dart';
 import 'package:noa/common_widgets/BottomNavigationBar.dart';
 import 'package:noa/services/Auth.dart';
 import 'package:noa/services/DataBase.dart';
+import 'package:noa/services/signIn/sign_in_up.dart';
 import 'package:provider/provider.dart';
 
 class LandingPage extends StatelessWidget {
@@ -18,7 +17,7 @@ class LandingPage extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           final user = snapshot.data;
           if (user == null) {
-            return signInUp.create(context);
+            return SignInUp.create(context);
           }
           return Provider<DataBase>(
             create: (_)=> FirestoreDataBase(

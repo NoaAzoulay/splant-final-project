@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:noa/common_widgets/custom_elevated_button.dart';
 import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
-import 'package:noa/screens/signIn/EmailSignIn.dart';
-import 'package:noa/screens/signIn/SignInManager.dart';
 import 'package:noa/services/Auth.dart';
 import 'package:provider/provider.dart';
+import 'EmailSignIn.dart';
+import 'SignInManager.dart';
 
-class signInUp extends StatelessWidget {
+class SignInUp extends StatelessWidget {
   final SignInManager manager;
   final bool isLoading;
   bool isRegister = false;
 
-  signInUp({Key key, this.manager, this.isLoading,this.isRegister,}) : super(key: key);
+  SignInUp({Key key, this.manager, this.isLoading,this.isRegister,}) : super(key: key);
 
   //create sign in page
   static Widget create(BuildContext context) {
@@ -27,7 +27,7 @@ class signInUp extends StatelessWidget {
           create: (_) => SignInManager(auth: auth, isLoading: isLoading),
           //to dispose widget when removed from tree
           child: Consumer<SignInManager>(
-            builder: (_, manager, __) => signInUp(manager: manager, isLoading: isLoading.value,),
+            builder: (_, manager, __) => SignInUp(manager: manager, isLoading: isLoading.value,),
           ),
         ),
       ),

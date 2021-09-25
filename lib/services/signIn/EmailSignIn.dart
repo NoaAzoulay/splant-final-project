@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:noa/screens/signIn/EmailSignInFormBlocBased.dart';
-import 'package:noa/screens/signIn/EmailSignInFormChangeNotifyer.dart';
-import 'package:noa/screens/signIn/EmailSignInForm_stateful.dart';
-import 'package:noa/services/Auth.dart';
+
+
+import 'EmailSignInFormChangeNotifyer.dart';
 
 
 class EmailSignIn extends StatelessWidget {

@@ -96,38 +96,6 @@ class PlantsDetails extends StatelessWidget {
         ),
       );
 
-  // Widget airHumidityIcon() => Column(
-  //       verticalDirection: VerticalDirection.down,
-  //       children: [
-  //         SizedBox(
-  //           width: 50,
-  //           height: 45,
-  //           child: Tooltip(
-  //             message: 'Air humidity',
-  //             child: Image.asset(
-  //               ('assets/icons/air_hum.png'),
-  //               fit: BoxFit.fitHeight,
-  //             ),
-  //           ),
-  //         ),
-  //         SizedBox(
-  //           height: 10,
-  //         ),
-  //         Row(
-  //           children: [
-  //             Text(
-  //               plant.airHumidity.toString(),
-  //               style: TextStyle(
-  //                   fontFamily: 'IndieFlower',
-  //                   fontSize: 20,
-  //                   fontWeight: FontWeight.bold,
-  //                   color: Colors.green),
-  //             ),
-  //             Text('%'),
-  //           ],
-  //         )
-  //       ],
-  //     );
 
   Widget soilHumidityIcon() => Column(
         verticalDirection: VerticalDirection.down,
@@ -135,26 +103,24 @@ class PlantsDetails extends StatelessWidget {
           SizedBox(
             width: 50,
             height: 50,
-            child: Tooltip(
+            child:
+            Tooltip(
               message: 'soil humidity',
-              child:
-                Icon(FontAwesomeIcons.fillDrip,
-                size: 35,
-                color: Colors.lightBlueAccent,)
+              textStyle: tooltipTextStyle(),
+              child: CircleAvatar(
+                child: Icon(FontAwesomeIcons.fillDrip,
+                  size: 20,
+                  color: Colors.black87,),
+              ),
             ),
           ),
           SizedBox(
             height: 10,
           ),
-          Row(
-            children: [
               Text(
-                plant.soilHumidity.toString(),
+                plant.soilHumidity.toString()+' %',
                 style: textStyle(),
               ),
-              Text(' %'),
-            ],
-          )
         ],
       );
 
@@ -164,26 +130,24 @@ class PlantsDetails extends StatelessWidget {
           SizedBox(
             width: 50,
             height: 50,
-            child: Tooltip(
-              message: 'Temperature',
-              child: Icon(FontAwesomeIcons.thermometerEmpty,
-                color: Colors.orangeAccent,
-                size: 40,
+            child: Tooltip(message: 'temperature',
+              textStyle: tooltipTextStyle(),
+              child:
+              CircleAvatar(
+                backgroundColor: Colors.orangeAccent[100],
+                child: Icon(FontAwesomeIcons.thermometerEmpty,
+                  size: 23,
+                  color: Colors.black87,),
               ),
             ),
               ),
           SizedBox(
             height: 10,
           ),
-          Row(
-            children: [
               Text(
-                plant.tmp.toString(),
+                plant.tmp.toString()+' C',
                 style: textStyle(),
               ),
-              Text(' C', style: textStyle(),)
-            ],
-          ),
         ],
       );
 
@@ -193,11 +157,14 @@ class PlantsDetails extends StatelessWidget {
           SizedBox(
             width: 50,
             height: 50,
-            child: Tooltip(
-              message: 'uv in range 1-5',
-              child: Icon(FontAwesomeIcons.sun,
-                size: 40,
-                color: Colors.yellowAccent,
+            child: Tooltip(message: 'sun / uv in range 1-5',
+              textStyle: tooltipTextStyle(),
+              child:
+              CircleAvatar(
+                backgroundColor: Colors.yellowAccent[100],
+                child: Icon(FontAwesomeIcons.sun,
+                  size: 23,
+                  color: Colors.black87,),
               ),
             ),
           ),
@@ -216,4 +183,6 @@ class PlantsDetails extends StatelessWidget {
       fontSize: 20,
       fontWeight: FontWeight.bold,
       color: Colors.green);
+  TextStyle tooltipTextStyle()=>TextStyle(fontFamily: 'IndieFlower', fontSize: 20, color: Colors.white);
+
 }

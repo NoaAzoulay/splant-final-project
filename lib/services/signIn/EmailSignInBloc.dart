@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:noa/screens/signIn/EmailSignInModel.dart';
 import 'package:noa/services/Auth.dart';
+
+import 'EmailSignInModel.dart';
 
 class EmailSignInBloc {
   final AuthBase auth;

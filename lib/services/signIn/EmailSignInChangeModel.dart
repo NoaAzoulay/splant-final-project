@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:noa/screens/signIn/validators.dart';
 import 'package:noa/services/Auth.dart';
+import 'package:noa/services/signIn/validators.dart';
 
 import 'EmailSignInModel.dart';
 
@@ -11,7 +11,7 @@ class EmailSignInChangeModel with EmailAndPasswordsValidators, ChangeNotifier {
   bool isLoading;
   bool submitted;
   final AuthBase auth;
-//cntr
+//cnstr
   EmailSignInChangeModel(
       {this.email = '',
       this.password = '',

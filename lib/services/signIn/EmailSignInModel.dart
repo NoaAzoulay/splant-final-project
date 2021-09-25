@@ -1,4 +1,4 @@
-import 'package:noa/screens/signIn/validators.dart';
+import 'package:noa/services/signIn/validators.dart';
 
 enum EmailSignInFormType { signIn, register }
 
