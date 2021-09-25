@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:noa/models/plant.dart';
 import 'package:noa/services/API_Path.dart';
-
 import 'firestoreService.dart';
 //common API so it can be scalable
 
 abstract class DataBase {
   Future<void> addNewCustomPlant(Plant plant);
+  Future<void> deletePlant(Plant plant);
   Future<void> addNewPlant( String uid,Plant plant);
   Stream<List<Plant>> plantsStream();
 
@@ -31,17 +31,17 @@ class FirestoreDataBase implements DataBase {
         data: plant.toMap(),
       );
 
-//user add plant from existing list
+//user add plant from existing plant list in db
   Future<void> addNewPlant(String uid,Plant plant) =>
       _service.setData(
         path: APIPath.plant(uid, docIdFromCurrentDate()),
         data: plant.toMap(),
       );
 
-  // Future<void> addUserToDB(String uid){
-  //   users.add({'uid',user.uid});
-  // }
-
+//user delete plant from list
+ Future<void> deletePlant(Plant plant) async => _service.deletePlant(
+   APIPath.plant(uid, plant.id),
+ );
 
 
 //read collection as a stream

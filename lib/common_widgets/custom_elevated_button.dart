@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 
-class customElevatedButton extends StatelessWidget {
+class CustomElevatedButton extends StatelessWidget {
   final double radius;
   final MaterialStateProperty bgcolor;
   final VoidCallback onPressed;
   final Color borderColor;
   final Widget child;
-  final double hight;
+  final double height;
   final Color buttonColor;
+  final double borderWidth;
 
-  customElevatedButton({
+  CustomElevatedButton({
     this.child,
     this.bgcolor,
     this.radius: 4.0,
     this.onPressed,
     this.borderColor,
-    this.hight: 40.0,
+    this.height: 40.0,
     this.buttonColor,
+    this.borderWidth: 2,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: hight,
+      height: height,
       child: ElevatedButton(
         onPressed: onPressed,
         //text
@@ -31,12 +33,9 @@ class customElevatedButton extends StatelessWidget {
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(radius),
-                    side: BorderSide(color: borderColor))),
+                    side: BorderSide(color: borderColor, width: borderWidth))),
             backgroundColor: bgcolor,
-            //MaterialStateProperty.all<Color>(Colors.white),
             ),
-
-
       ),
     );
   }

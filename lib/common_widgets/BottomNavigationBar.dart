@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:noa/screens/plants/userPlants.dart';
 import 'package:noa/screens/userScreens/HomePage.dart';
+import 'package:noa/screens/userScreens/LandingPageUI.dart';
 import 'package:noa/screens/userScreens/userProfile.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -15,6 +16,7 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int currentIndex =0;
   final screens = [
+    //LandingPageUI(),
     HomePage(),
     UsersPlants(),
     UserProfilePage(),

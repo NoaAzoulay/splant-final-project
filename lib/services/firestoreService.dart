@@ -15,6 +15,12 @@ class FireStoreService{
     await reference.set(data);
   }
 
+  Future<void> deletePlant(String path) async{
+    final reference = FirebaseFirestore.instance.doc(path);
+    print('$path: deleted');
+    await reference.delete();
+  }
+
   //getting the collection data from firestore
   Stream<List<T>> collectionStream<T>({
     String path,

@@ -33,38 +33,41 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('My Profile'),
-       // centerTitle: true,
-        actions: [
-          TextButton(onPressed: ()=> _confirmSignOut(context), child: Text('Logout'))
-        ],
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: 40,
-              backgroundImage: NetworkImage(user.photoURL),
-
-            ),
-            SizedBox(height: 15,),
-            Text(
-              ''+user.displayName,
-              style: TextStyle(fontSize: 24),
-            ),
-            SizedBox(height: 15,),
-            Text(
-              ''+user.email,
-              style: TextStyle(fontSize: 24),
-            ),
+    return
+      Scaffold(
+        appBar: AppBar(
+          title: Text('My Profile'),
+         // centerTitle: true,
+          actions: [
+            TextButton(onPressed: ()=> _confirmSignOut(context), child: Text('Logout'))
           ],
         ),
-      ),
-    );
+        body: SingleChildScrollView(
+          child: Container(
+            alignment: Alignment.center,
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  radius: 40,
+                  backgroundImage: NetworkImage(user.photoURL),
+
+                ),
+                SizedBox(height: 15,),
+                Text(
+                  ''+user.displayName,
+                  style: TextStyle(fontSize: 24),
+                ),
+                SizedBox(height: 15,),
+                Text(
+                  ''+user.email,
+                  style: TextStyle(fontSize: 24),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:noa/screens/userScreens/LandingPage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:noa/screens/userScreens/splashScreen.dart';
 import 'package:noa/services/Auth.dart';
 import 'package:provider/provider.dart';
 
@@ -20,31 +21,20 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-  // return MultiProvider(
-  // providers: [
-  // ChangeNotifierProvider<LoginProvider>(create: (_) => LoginProvider()),
-  // ChangeNotifierProvider<RegisterProfileProvider>(
-  // create: (_) => RegisterProfileProvider()),],
           return Provider<AuthBase>(
             create: (context)=>Auth(),
             child: MaterialApp(
               theme: ThemeData(
                 primaryColor: Colors.green[100],
               ),
-              home: LandingPage(
+              home: SplashPage(
+                duration: 3,
+                goToPage: LandingPage(),
               ),
-// body: Center(
-//   child: Image(
-//    // image: AssetImage('assets/sea1.jpg'),
             ),
           );
         }
 
-        // Otherwise, show something whilst waiting for initialization to complete
-       // return Loading();
-    //  },
-   // );
- // }
 }
 
 

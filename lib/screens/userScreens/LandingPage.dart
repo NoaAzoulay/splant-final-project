@@ -7,7 +7,6 @@ import 'package:noa/services/signIn/sign_in_up.dart';
 import 'package:provider/provider.dart';
 
 class LandingPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);

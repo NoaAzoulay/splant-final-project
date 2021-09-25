@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:noa/common_widgets/custom_elevated_button.dart';
 import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
 import 'package:noa/services/Auth.dart';
@@ -14,7 +15,12 @@ class SignInUp extends StatelessWidget {
   final bool isLoading;
   bool isRegister = false;
 
-  SignInUp({Key key, this.manager, this.isLoading,this.isRegister,}) : super(key: key);
+  SignInUp({
+    Key key,
+    this.manager,
+    this.isLoading,
+    this.isRegister,
+  }) : super(key: key);
 
   //create sign in page
   static Widget create(BuildContext context) {
@@ -27,14 +33,17 @@ class SignInUp extends StatelessWidget {
           create: (_) => SignInManager(auth: auth, isLoading: isLoading),
           //to dispose widget when removed from tree
           child: Consumer<SignInManager>(
-            builder: (_, manager, __) => SignInUp(manager: manager, isLoading: isLoading.value,),
+            builder: (_, manager, __) => SignInUp(
+              manager: manager,
+              isLoading: isLoading.value,
+            ),
           ),
         ),
       ),
     );
   }
 
-  final bool isSignedIn= false;
+  final bool isSignedIn = false;
   void _showSignInError(BuildContext context, Exception exception) {
     if (exception is FirebaseException &&
         exception.code == 'ERROR_ABORTED_BY_USER') {
@@ -44,11 +53,9 @@ class SignInUp extends StatelessWidget {
         title: 'Sign in Failed', exception: exception);
   }
 
-
-
   Future<void> _signInAnonymously(BuildContext context) async {
     try {
-     await manager.signInAnonymously();
+      await manager.signInAnonymously();
     } on Exception catch (e) {
       _showSignInError(context, e);
     }
@@ -92,149 +99,168 @@ class SignInUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  _buildContent(context),
+      body: _buildContent(context),
     );
   }
 
   Widget _buildContent(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(height: 80.0, child: _buildHeader()),
-          Text(
-            'Splant.',
-            style: TextStyle(
-                fontSize: 65.0,
-                fontWeight: FontWeight.normal,
-                letterSpacing: 3,
-                color: Colors.green,
-                fontFamily: 'IndieFlower'),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: 60,
-          ),
-          customElevatedButton(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Image(
-                  image: AssetImage('assets/logos/google-logo.png'),
-                ),
-                Text(
-                  'Sign in with Google',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 15.0,
-                  ),
-                ),
-                Opacity(
-                  opacity: 0.0,
-                  child: Image(
-                    image: AssetImage('assets/logos/google-logo.png'),
-                  ),
-                ),
-              ],
-            ),
-            bgcolor: MaterialStateProperty.all<Color>(Colors.grey[200]),
-            borderColor: Colors.grey[200],
-            radius: 4.0,
-            onPressed: isLoading ? null : () =>
-                // Provider.of<LoginProvider>(context, listen: false)
-                // .signInWithGoogle(context, isRegister)),
-                _signInWithGoogle(context)),
-          SizedBox(
-            height: 8,
-          ),
-          customElevatedButton(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                //Image.asset('logos/facebook_logo.jpg'),
-                Image(
-                  image: AssetImage('assets/logos/facebook_logo.jpg'),
-                ),
-                Text(
-                  'Sign in with Facebook',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15.0,
-                  ),
-                ),
-                Opacity(
-                  opacity: 0.0,
-                  child: Image(
-                    image: AssetImage('assets/logos/facebook_logo.jpg'),
-                  ),
-                ),
-              ],
-            ),
-            bgcolor: MaterialStateProperty.all<Color>(Colors.blue[900]),
-            borderColor: Colors.blue[900],
-            radius: 4.0,
-            onPressed: isLoading ? null : () => _signInWithFacebook(context),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          customElevatedButton(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                //Image.asset('logos/facebook_logo.jpg'),
-                Image(
-                  image: AssetImage('assets/logos/email_logo.jpg'),
-                ),
-                Text(
-                  'Sign in with Email',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15.0,
-                  ),
-                ),
-                Opacity(
-                  opacity: 0.0,
-                  child: Image(
-                    image: AssetImage('assets/logos/email_logo.jpg'),
-                  ),
-                ),
-              ],
-            ),
-            bgcolor: MaterialStateProperty.all<Color>(Colors.teal[600]),
-            borderColor: Colors.teal[600],
-            radius: 4.0,
-            onPressed: isLoading ? null : () => _signInWithEmail(context),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Text(
-            'or',
-            style: TextStyle(
-              fontSize: 15.0,
-              color: Colors.black87,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          customElevatedButton(
-            child: Text(
-              'Go Anonymous',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15.0,
+    return
+       Container(
+      color: Colors.brown[200],
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Opacity(
+              opacity: 0.6,
+              child: Image.asset(
+                'assets/signin/back6.jpg',
+                fit: BoxFit.cover,
               ),
             ),
-            bgcolor: MaterialStateProperty.all<Color>(Colors.green[600]),
-            borderColor: Colors.green[600],
-            radius: 4.0,
-            onPressed: isLoading ? null : () => _signInAnonymously(context),
           ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 50, ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Splant',
+                          style: TextStyle(
+                              fontSize: 70,
+                              fontFamily: 'IndieFlower',
+                              letterSpacing: 2,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        Icon(
+                          FontAwesomeIcons.leaf,
+                          size: 20,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(70, 100, 70, 0),
+                    child: CustomElevatedButton(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.google,
+                              size: 20,
+                              color: Colors.red,
+                            ),
+                            SizedBox(
+                              width: 14,
+                            ),
+                            Text(
+                              'Sign in with Google',
+                              style: TextStyle(
+                                  color: Colors.black87,
+                                  fontFamily: 'IndieFlower',
+                                  fontSize: 20.0,
+                                  letterSpacing: 1,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        bgcolor:
+                            MaterialStateProperty.all<Color>(Colors.white70),
+                        borderColor: Colors.red[300],
+                        radius: 20.0,
+                        onPressed: isLoading
+                            ? null
+                            : () => _signInWithGoogle(context)),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+                    child: CustomElevatedButton(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.facebookF,
+                            color: Colors.blue[900],
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Sign in with Facebook',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontFamily: 'IndieFlower',
+                              fontSize: 20.0,
+                              letterSpacing: 0.5,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      bgcolor: MaterialStateProperty.all<Color>(Colors.white70),
+                      borderColor: Colors.blue[700],
+                      radius: 20.0,
+                      onPressed:
+                          isLoading ? null : () => _signInWithFacebook(context),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+                    child: CustomElevatedButton(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.envelope,
+                            size: 20,
+                            color: Colors.green[900],
+                          ),
+                          SizedBox(
+                            width: 24,
+                          ),
+                          Text(
+                            'Sign in with Email',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontFamily: 'IndieFlower',
+                              fontSize: 20.0,
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      bgcolor: MaterialStateProperty.all<Color>(Colors.white70),
+                      borderColor: Colors.green[400],
+                      radius: 20.0,
+                      onPressed:
+                          isLoading ? null : () => _signInWithEmail(context),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
