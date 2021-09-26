@@ -28,7 +28,6 @@ class UserData {
  }
 
 
- // User get currentUser => _firebaseAuth.currentUser;
   String getCurrentUserID() {
     return firebaseAuth.currentUser.uid;
 }

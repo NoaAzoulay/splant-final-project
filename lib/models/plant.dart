@@ -1,4 +1,4 @@
-//option to add a plant which doesnt exist in DB
+
 class Plant {
   final String name;
   final int soilHumidity;
@@ -40,7 +40,7 @@ class Plant {
       tmp: tmp,
       image: image,
       id: docID,
-    serial: serial
+      serial: serial
 
     );
   }

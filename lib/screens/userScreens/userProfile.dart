@@ -35,13 +35,6 @@ class UserProfilePage extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
     return
       Scaffold(
-        appBar: AppBar(
-          title: Text('My Profile'),
-         // centerTitle: true,
-          actions: [
-            TextButton(onPressed: ()=> _confirmSignOut(context), child: Text('Logout'))
-          ],
-        ),
         body: SingleChildScrollView(
           child: Container(
             alignment: Alignment.center,

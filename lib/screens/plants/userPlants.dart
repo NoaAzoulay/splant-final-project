@@ -10,30 +10,19 @@ import 'package:provider/provider.dart';
 import 'dart:ui';
 import '../../models/plant.dart';
 
-class UsersPlants extends StatelessWidget {
+class UsersPlants extends StatefulWidget {
+  @override
+  _UsersPlantsState createState() => _UsersPlantsState();
+}
+
+class _UsersPlantsState extends State<UsersPlants> {
   final width = window.physicalSize.width;
+
   final height = window.physicalSize.height;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Text(
-              'Splant',
-              style: TextStyle(
-                  color: Colors.white, fontFamily: 'IndieFlower', fontSize: 30),
-            ),
-            Icon(FontAwesomeIcons.leaf,
-            size: 12,
-            color: Colors.white70,
-            )
-          ],
-        ),
-        // centerTitle: true,
-        backgroundColor: Colors.green,
-      ),
       body: _buildContents(context),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -48,18 +37,11 @@ class UsersPlants extends StatelessWidget {
     );
   }
 
-//show the list of the users plants
   Widget _buildContents(BuildContext context) {
     final database = Provider.of<DataBase>(context, listen: false);
     return StreamBuilder<List<Plant>>(
       stream: database.plantsStream(),
       builder: (context, snapshot) {
-        // if(!snapshot.hasData){
-        //   return
-        //     Center(
-        //              child: Text('It\'s empty here!\nadd new plants')
-        //         ,);
-        // }
         if (snapshot.hasError) {
           return Center(
             child: Text('Some Error Occurred'),
@@ -205,6 +187,7 @@ class UsersPlants extends StatelessWidget {
   }
 
   TextStyle tooltipTextStyle()=>TextStyle(fontFamily: 'IndieFlower', fontSize: 20, color: Colors.white);
+
   TextStyle textStyle()=>TextStyle(fontSize: 17,fontFamily:'IndieFlower',fontWeight: FontWeight.bold);
 
  Future<void> _delete(BuildContext context, Plant plant) async {
