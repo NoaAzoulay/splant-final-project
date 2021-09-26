@@ -40,7 +40,7 @@ class FirestoreDataBase implements DataBase {
 
 //user delete plant from list
  Future<void> deletePlant(Plant plant) async => _service.deletePlant(
-   APIPath.plant(uid, plant.id),
+   APIPath.plant(uid, plant.id)
  );
 
 

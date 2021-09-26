@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
 import 'package:noa/screens/plants/addPlantPage.dart';
 import 'package:noa/services/DataBase.dart';
+import 'package:noa/services/myClient.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui';
 import '../../models/plant.dart';
@@ -17,6 +18,7 @@ class UsersPlants extends StatefulWidget {
 
 class _UsersPlantsState extends State<UsersPlants> {
   final width = window.physicalSize.width;
+  MyClient client= MyClient.instance;
 
   final height = window.physicalSize.height;
 
@@ -59,20 +61,23 @@ class _UsersPlantsState extends State<UsersPlants> {
             itemCount: plants.length,
             itemBuilder: (context, i) => SafeArea(
               child: SingleChildScrollView(
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.brown[200], width: 2),
-                  color: Colors.white,
-                  ),
-                  child: Dismissible(
-                    background: Container(color: Colors.grey,
-                    child: Icon(Icons.delete_outline,
-                      size: 40,
-                    ),),
-                    direction: DismissDirection.endToStart,
-                    key: Key('plant-${plants[i].id}'),
-                    onDismissed: (direction)=>_delete(context, plants[i]) ,
+                child: Dismissible(
+                  background: Container(color: Colors.grey,
+                  child: Icon(Icons.delete_outline,
+                    size: 40,
+                  ),),
+                  direction: DismissDirection.endToStart,
+                  key: Key('plant-${plants[i].id}'),
+                  onDismissed: (direction){
+                    _delete(context, plants[i]);
+                    client.notifyServerFlowerBoxDeleted(plants[i].serial);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.brown[200], width: 2),
+                    color: Colors.white,
+                    ),
                     child: GridTile(
                         child: Container(
                           child: Row(
@@ -102,7 +107,6 @@ class _UsersPlantsState extends State<UsersPlants> {
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 2,
                                          decorationStyle: TextDecorationStyle.wavy,
-                                         // backgroundColor: Colors.white60
                                         ),
                                       ),
                                   ),
@@ -174,7 +178,7 @@ class _UsersPlantsState extends State<UsersPlants> {
                         ),
                       ),
                   ),
-                        ),
+                ),
               ),
                     )
               );

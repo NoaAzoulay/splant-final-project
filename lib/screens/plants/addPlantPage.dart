@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
-import 'package:animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,8 +7,8 @@ import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
 import 'package:noa/models/plant.dart';
 import 'package:noa/models/user.dart';
 import 'package:noa/screens/plants/plantsDetailsCard.dart';
-import 'package:noa/services/API_Path.dart';
 import 'package:noa/services/DataBase.dart';
+import 'package:noa/services/myClient.dart';
 import 'package:noa/services/firestore.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -32,6 +29,7 @@ class AddPlant extends StatefulWidget {
 
 class _AddPlantState extends State<AddPlant> {
   Future getPlantsFuture = FirestoreDB.getPlants();
+  MyClient client= MyClient.instance;
   List<Plant> plants;
   User currentUser = FirebaseAuth.instance.currentUser;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -113,6 +111,7 @@ class _AddPlantState extends State<AddPlant> {
 
   Future<void> addPlantToUserList(Plant plant, String num) async {
     try {
+      print(num+'1');
       users.doc(currentUser.uid).collection('plants').doc(plant.id).set({
         'name': plant.name,
         'image': plant.image,
@@ -121,10 +120,11 @@ class _AddPlantState extends State<AddPlant> {
         'UV': plant.uv,
         'Temperature': plant.tmp,
         'serial': num,
-      }).then((value) => addToList(plant));
+      }).then((value) => print(num));
       print('plant added');
-      notifyServer();
       Navigator.of(context).pop();
+      client.notifyServerFlowerBoxAdded(num);
+      print('next');
     } on FirebaseException catch (e) {
       showExceptionAlertDialog(context,
           title: 'An Error occurred, please try again', exception: e);
@@ -132,10 +132,10 @@ class _AddPlantState extends State<AddPlant> {
   }
 
 //images list
-  void addToList(Plant plant) {
-    UserData userData;
-    userData.userPlantsList.add(plant.image);
-  }
+//   void addToList(Plant plant) {
+//     UserData userData;
+//     userData.userPlantsList.add(plant.image);
+//   }
 
   void addSerialNum(context, i) {
     String serialNum;
@@ -181,6 +181,4 @@ class _AddPlantState extends State<AddPlant> {
         ]).show();
   }
 
-//TODO
-  void notifyServer() {}
 }

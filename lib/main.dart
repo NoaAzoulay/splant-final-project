@@ -1,3 +1,5 @@
+
+import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
 import 'package:noa/screens/userScreens/LandingPage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,7 +9,13 @@ import 'package:provider/provider.dart';
 
 
 
+
 void main() async{
+  var eventSource = new html.EventSource("http://192.168.14.114/events");
+  eventSource.addEventListener('status_readings', (html.Event message) {
+    print((message as html.MessageEvent).data as String);
+  });
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(Home());

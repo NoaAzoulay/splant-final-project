@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:noa/common_widgets/showAlertDialog.dart';
 import 'package:noa/services/Auth.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,23 @@ class UserProfilePage extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
     return
       Scaffold(
+        appBar: AppBar(
+            actions: [TextButton(onPressed:()=> _confirmSignOut(context),
+                child: Text('Logout'))],
+            title: Row(
+              children: [
+              Text(
+              'Splant',
+              style: TextStyle(
+                  color: Colors.white, fontFamily: 'IndieFlower', fontSize: 30),
+            ),
+            Icon(FontAwesomeIcons.leaf,
+              size: 12,
+              color: Colors.white70,
+            ),
+          ],
+        ),
+      ),
         body: SingleChildScrollView(
           child: Container(
             alignment: Alignment.center,

@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:noa/services/myClient.dart';
 
 class FireStoreService{
   //accessible only by a singleton
@@ -34,6 +35,8 @@ class FireStoreService{
               (snapshot) => builder(snapshot.data(), snapshot.id),
         ).toList());
   }
+
+
 
 
 

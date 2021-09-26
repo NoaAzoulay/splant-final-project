@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -104,16 +106,17 @@ class SignInUp extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context) {
+    List<Color> colors = [Colors.yellow[200], Colors.lightGreen[300],Colors.white];
     return
        Container(
-      color: Colors.brown[200],
+      color: Colors.white,
       child: Stack(
         children: [
           Positioned.fill(
             child: Opacity(
-              opacity: 0.6,
+              opacity: 0.8,
               child: Image.asset(
-                'assets/signin/back6.jpg',
+                'assets/signin/bamboo5.png',
                 fit: BoxFit.cover,
               ),
             ),
@@ -125,35 +128,49 @@ class SignInUp extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 50, ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Splant',
-                          style: TextStyle(
-                              fontSize: 70,
-                              fontFamily: 'IndieFlower',
-                              letterSpacing: 2,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                        Icon(
-                          FontAwesomeIcons.leaf,
-                          size: 20,
-                          color: Colors.white,
-                        )
-                      ],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+                    child: Container(
+                      height: 200,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                    //borderRadius: BorderRadius.circular(20),
+                    color: Colors.white54,
+    ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AnimatedTextKit(
+                            pause: Duration(microseconds: 1),
+                            animatedTexts: [TyperAnimatedText(
+                              'Splant',
+                              textStyle: TextStyle(
+                                  fontSize: 70,
+                                  fontFamily: 'IndieFlower',
+                                  letterSpacing: 2,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.lightGreen[900]),
+                              speed: Duration(milliseconds: 40),
+
+                            )],
+                          )
+                          ,
+                          Icon(
+                            FontAwesomeIcons.leaf,
+                            size: 40,
+                            color: Colors.green[900],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 0,
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(70, 100, 70, 0),
+                    padding: const EdgeInsets.fromLTRB(50, 100, 50, 0),
                     child: CustomElevatedButton(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -179,7 +196,7 @@ class SignInUp extends StatelessWidget {
                         ),
                         bgcolor:
                             MaterialStateProperty.all<Color>(Colors.white70),
-                        borderColor: Colors.red[300],
+                        borderColor: Colors.lightGreen[900],
                         radius: 20.0,
                         onPressed: isLoading
                             ? null
@@ -189,7 +206,7 @@ class SignInUp extends StatelessWidget {
                     height: 8,
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+                    padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
                     child: CustomElevatedButton(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -215,7 +232,7 @@ class SignInUp extends StatelessWidget {
                         ],
                       ),
                       bgcolor: MaterialStateProperty.all<Color>(Colors.white70),
-                      borderColor: Colors.blue[700],
+                      borderColor: Colors.lightGreen[900],
                       radius: 20.0,
                       onPressed:
                           isLoading ? null : () => _signInWithFacebook(context),
@@ -225,7 +242,7 @@ class SignInUp extends StatelessWidget {
                     height: 8,
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+                    padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
                     child: CustomElevatedButton(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -251,7 +268,7 @@ class SignInUp extends StatelessWidget {
                         ],
                       ),
                       bgcolor: MaterialStateProperty.all<Color>(Colors.white70),
-                      borderColor: Colors.green[400],
+                      borderColor: Colors.lightGreen[900],
                       radius: 20.0,
                       onPressed:
                           isLoading ? null : () => _signInWithEmail(context),
