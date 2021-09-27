@@ -46,7 +46,7 @@ class PlantsDetails extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      buildImage(),
+                      buildImage(plant),
                       SizedBox(
                         height: 20,
                       ),
@@ -57,15 +57,15 @@ class PlantsDetails extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          soilHumidityIcon(),
+                          soilHumidityIcon(plant),
                           SizedBox(
                             width: 20,
                           ),
-                          tempIcon(),
+                          tempIcon(plant),
                           SizedBox(
                             width: 20,
                           ),
-                          uvIcon()
+                          uvIcon(plant)
                         ],
                       )
                     ],
@@ -79,7 +79,8 @@ class PlantsDetails extends StatelessWidget {
       );
   }
 
-  Widget buildImage() => Image.network(
+  Widget buildImage(plant) =>
+      Image.network(
         plant.image,
         fit: BoxFit.cover,
         height: 300,
@@ -97,7 +98,7 @@ class PlantsDetails extends StatelessWidget {
       );
 
 
-  Widget soilHumidityIcon() => Column(
+  Widget soilHumidityIcon(plant) => Column(
         verticalDirection: VerticalDirection.down,
         children: [
           SizedBox(
@@ -124,7 +125,7 @@ class PlantsDetails extends StatelessWidget {
         ],
       );
 
-  Widget tempIcon() => Column(
+  Widget tempIcon(plant) => Column(
         verticalDirection: VerticalDirection.down,
         children: [
           SizedBox(
@@ -151,7 +152,7 @@ class PlantsDetails extends StatelessWidget {
         ],
       );
 
-  Widget uvIcon() => Column(
+  Widget uvIcon(plant) => Column(
         verticalDirection: VerticalDirection.down,
         children: [
           SizedBox(

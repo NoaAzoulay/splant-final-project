@@ -1,22 +1,11 @@
-import 'dart:ui';
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 
  class MyClient  {
-
+//singleton
     MyClient._();
     static final instance =MyClient._();
-
-    // String localhost = "192.168.14.114";
-    // String path = "/myDIV_30";
-    // HttpClient client = new HttpClient();
-    // var response = client.getUrl(new Uri.http(localhost, path)).then((
-    //     HttpClientRequest request) {
-    //   return request.close();
-    // });
-    // print(response);
 
     void httpGetReqFromServer(String req) {
       String localhost = "192.168.14.114";
@@ -37,7 +26,6 @@ import 'package:http/http.dart' as http;
       });
       print(response);
     }
-    //httpGetReqFromServer("/myDIV_31");
 
     void notifyServerFlowerBoxDeleted(String num) {
       switch (num) {
@@ -58,8 +46,7 @@ import 'package:http/http.dart' as http;
     void notifyServerFlowerBoxAdded(String num) {
       switch(num){
         case "1":
-          String path= "/myDIV_30";
-          httpGetReqFromServer(path);
+          httpGetReqFromServer("/myDIV_30");
           break;
         case "2":
           httpGetReqFromServer("/myDIV_32");
@@ -91,6 +78,43 @@ import 'package:http/http.dart' as http;
       final String turnOffDripping="/myDIV_2";
       httpGetReqFromServer(turnOffDripping);
     }
+    void setTreshold30ForBox1(){
+      httpGetReqFromServer("/myDIV_3");
+    }
+    void setTreshold50ForBox1(){
+      httpGetReqFromServer("/myDIV_4");
+    }
+    void setTreshold70ForBox1(){
+      httpGetReqFromServer("/myDIV_5");
+    }
+    void setTreshold30ForBox2(){
+      httpGetReqFromServer("/myDIV_13");
+    }
+    void setTreshold50ForBox2(){
+      httpGetReqFromServer("/myDIV_14");
+    }
+    void setTreshold70ForBox2(){
+      httpGetReqFromServer("/myDIV_15");
+    }
+    void setTreshold30ForBox3(){
+      httpGetReqFromServer("/myDIV_23");
+    }
+    void setTreshold50ForBox3(){
+      httpGetReqFromServer("/myDIV_24");
+    }
+    void setTreshold70ForBox3(){
+      httpGetReqFromServer("/myDIV_25");
+    }
+    void setTreshold30ForBox4(){
+      httpGetReqFromServer("/myDIV_43");
+    }
+    void setTreshold50ForBox4(){
+      httpGetReqFromServer("/myDIV_44");
+    }
+    void setTreshold70ForBox4(){
+      httpGetReqFromServer("/myDIV_45");
+    }
+
   }
 
 

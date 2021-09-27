@@ -19,6 +19,7 @@ class HomePage extends StatelessWidget {
   }
 
   void letsGo() {
+   // client.activateSprayerManually();
     var eventSource = new html.EventSource("/events");
     eventSource.addEventListener('open', (html.Event message) {
       print((message as html.MessageEvent).data as String);
@@ -26,6 +27,6 @@ class HomePage extends StatelessWidget {
       eventSource.addEventListener('status_readings', (html.Event message) {
         print((message as html.MessageEvent).data as String);
     });
-    //client.turnOffDripping();
+    client.turnOffDripping();
   }
 }

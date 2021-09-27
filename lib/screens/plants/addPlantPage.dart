@@ -111,7 +111,6 @@ class _AddPlantState extends State<AddPlant> {
 
   Future<void> addPlantToUserList(Plant plant, String num) async {
     try {
-      print(num+'1');
       users.doc(currentUser.uid).collection('plants').doc(plant.id).set({
         'name': plant.name,
         'image': plant.image,
@@ -121,21 +120,13 @@ class _AddPlantState extends State<AddPlant> {
         'Temperature': plant.tmp,
         'serial': num,
       }).then((value) => print(num));
-      print('plant added');
       Navigator.of(context).pop();
       client.notifyServerFlowerBoxAdded(num);
-      print('next');
     } on FirebaseException catch (e) {
       showExceptionAlertDialog(context,
           title: 'An Error occurred, please try again', exception: e);
     }
   }
-
-//images list
-//   void addToList(Plant plant) {
-//     UserData userData;
-//     userData.userPlantsList.add(plant.image);
-//   }
 
   void addSerialNum(context, i) {
     String serialNum;

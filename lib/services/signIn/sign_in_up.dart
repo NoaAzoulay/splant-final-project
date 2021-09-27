@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,7 @@ class SignInUp extends StatelessWidget {
       child: Consumer<ValueNotifier<bool>>(
         builder: (_, isLoading, __) => Provider<SignInManager>(
           create: (_) => SignInManager(auth: auth, isLoading: isLoading),
-          //to dispose widget when removed from tree
+          // dispose widget when removed from tree
           child: Consumer<SignInManager>(
             builder: (_, manager, __) => SignInUp(
               manager: manager,
@@ -88,16 +87,6 @@ class SignInUp extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
-    if (isLoading) {
-      return Center(
-        child: CircularProgressIndicator(
-          color: Colors.green,
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +95,6 @@ class SignInUp extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context) {
-    List<Color> colors = [Colors.yellow[200], Colors.lightGreen[300],Colors.white];
     return
        Container(
       color: Colors.white,
@@ -135,39 +123,29 @@ class SignInUp extends StatelessWidget {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                    //borderRadius: BorderRadius.circular(20),
                     color: Colors.white54,
     ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          AnimatedTextKit(
-                            pause: Duration(microseconds: 1),
-                            animatedTexts: [TyperAnimatedText(
+                           Text(
                               'Splant',
-                              textStyle: TextStyle(
+                              style: TextStyle(
                                   fontSize: 70,
                                   fontFamily: 'IndieFlower',
                                   letterSpacing: 2,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.lightGreen[900]),
-                              speed: Duration(milliseconds: 40),
-
-                            )],
-                          )
-                          ,
+                            ),
                           Icon(
                             FontAwesomeIcons.leaf,
                             size: 40,
                             color: Colors.green[900],
-                          )
+                          ),
                         ],
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 0,
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(50, 100, 50, 0),
@@ -250,7 +228,7 @@ class SignInUp extends StatelessWidget {
                           Icon(
                             FontAwesomeIcons.envelope,
                             size: 20,
-                            color: Colors.green[900],
+                            color: Colors.lightGreen[900],
                           ),
                           SizedBox(
                             width: 24,

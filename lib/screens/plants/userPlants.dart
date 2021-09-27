@@ -1,3 +1,4 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
 import 'package:noa/screens/plants/addPlantPage.dart';
+import 'package:noa/screens/plants/plantActionsPage.dart';
 import 'package:noa/services/DataBase.dart';
 import 'package:noa/services/myClient.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +19,10 @@ class UsersPlants extends StatefulWidget {
 }
 
 class _UsersPlantsState extends State<UsersPlants> {
-  final width = window.physicalSize.width;
+  //final width = window.physicalSize.width;
   MyClient client= MyClient.instance;
 
-  final height = window.physicalSize.height;
+  //final height = window.physicalSize.height;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +88,6 @@ class _UsersPlantsState extends State<UsersPlants> {
                             children: [
                               Expanded(
                                 child: Container(
-                      //padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.brown[200], width: 3),
@@ -170,7 +171,12 @@ class _UsersPlantsState extends State<UsersPlants> {
                                 Padding(
                                     padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: IconButton(
-                                      onPressed: (){},
+                                    //TODO
+                                      onPressed: ()=>
+                                          Navigator.push(context,
+                                              new MaterialPageRoute(
+                                                builder: (context) => PlantActionsPage(plant: plants[i]) ),
+                                          ),
                                       icon: Icon(Icons.double_arrow)),
                                 ),
                               ],
