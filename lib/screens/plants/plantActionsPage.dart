@@ -4,11 +4,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:noa/common_widgets/custom_elevated_button.dart';
 import 'package:noa/models/plant.dart';
 import 'package:noa/screens/plants/plantsDetailsCard.dart';
+import 'package:noa/services/jsonHandler.dart';
 import 'package:noa/services/myClient.dart';
 
 class PlantActionsPage extends StatelessWidget {
   final Plant plant;
   MyClient client = MyClient.instance;
+  JsonHandler jsonHandler = JsonHandler.instance;
   PlantActionsPage({this.plant});
 
   @override
@@ -123,7 +125,8 @@ class PlantActionsPage extends StatelessWidget {
                               SizedBox(
                                 width: 20,
                               ),
-                              PlantsDetails().uvIcon(plant)
+                              PlantsDetails().uvIcon(plant),
+                              Text(jsonHandler.dataServer.soilHumidity1),
                             ],
                           ),
                         ),
