@@ -163,7 +163,7 @@ class _UsersPlantsState extends State<UsersPlants> {
                                                   color: Colors.black87,),
                                               ),
                                             ),
-                                            Text(plants[i].uv.toString(),
+                                            Text(((plants[i].uv)/5).toString(),
                                                 style: textStyle(),),
                                             SizedBox(height: 2,),
                                             Tooltip(message: 'temperature',

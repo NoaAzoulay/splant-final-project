@@ -158,7 +158,7 @@ class PlantsDetails extends StatelessWidget {
           SizedBox(
             width: 50,
             height: 50,
-            child: Tooltip(message: 'sun / uv in range 1-5',
+            child: Tooltip(message: 'sun / uv in range 0-1',
               textStyle: tooltipTextStyle(),
               child:
               CircleAvatar(
@@ -173,7 +173,7 @@ class PlantsDetails extends StatelessWidget {
             height: 10,
           ),
           Text(
-            plant.uv.toString(),
+  (plant.uv/5).toString(),
             style: textStyle(),
           ),
         ],

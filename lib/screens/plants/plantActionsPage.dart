@@ -16,6 +16,22 @@ class PlantActionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Text(
+                'Splant',
+                style: TextStyle(
+                    color: Colors.white, fontFamily: 'IndieFlower', fontSize: 30),
+              ),
+              Icon(FontAwesomeIcons.leaf,
+                size: 12,
+                color: Colors.white70,
+              )
+            ],
+          ),
+          backgroundColor: Colors.green,
+        ),
         body: SingleChildScrollView(
           child: Expanded(
             child: Column(
@@ -142,7 +158,7 @@ class PlantActionsPage extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 3, right: 15),
-                          child: Icon(FontAwesomeIcons.heart, size: 30, color: Colors.redAccent[100],),
+                          child: Icon(FontAwesomeIcons.infoCircle, size: 30, color: Colors.greenAccent[400],),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 3.0, bottom: 4, top: 4),
@@ -362,7 +378,7 @@ class PlantActionsPage extends StatelessWidget {
       SizedBox(
         width: 50,
         height: 50,
-        child: Tooltip(message: 'sun / uv in range 1-5',
+        child: Tooltip(message: 'sun / uv in range 0-1',
           textStyle: tooltipTextStyle(),
           child:
           CircleAvatar(
@@ -377,7 +393,7 @@ class PlantActionsPage extends StatelessWidget {
         height: 10,
       ),
       Text(
-        jsonHandler.dataServer.uv,
+        (jsonHandler.dataServer.uv).toString(),
         style: IcontextStyle(),
       ),
     ],

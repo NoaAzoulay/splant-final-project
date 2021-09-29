@@ -51,7 +51,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 padding: const EdgeInsets.all(3.0),
                 child: Icon(FontAwesomeIcons.leaf),
               ),
-              //Image(image: SvgPicture('assets/icons/flower.svg'),),
               label: 'My plants',
               backgroundColor: Colors.green
           ),
@@ -60,7 +59,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 padding: const EdgeInsets.all(3.0),
                 child: Icon(FontAwesomeIcons.user),
               ),
-              //Image(image: AssetImage('assets/icons/user-icon.svg'),),
               label: 'My profile',
               backgroundColor: Colors.green
           ),
