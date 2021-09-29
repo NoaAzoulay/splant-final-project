@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:noa/common_widgets/custom_elevated_button.dart';
+import 'package:noa/customWidgets/custom_elevated_button.dart';
 
 class FormSubmitButton extends CustomElevatedButton{
   FormSubmitButton({

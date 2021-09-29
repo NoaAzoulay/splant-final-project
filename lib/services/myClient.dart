@@ -149,10 +149,10 @@ import 'package:noa/models/plant.dart';
     }
 
    void thresholdCheckForBox1(Plant plant){
-     if(plant.soilHumidity>69){
+     if(plant.soilHumidity>70){
        setTreshold70ForBox1();
        updateThreshold(plant,70);
-     }else if((plant.soilHumidity>29)&&(plant.soilHumidity<51)){
+     }if(((plant.soilHumidity)>29)&&((plant.soilHumidity)<71)){
        setTreshold50ForBox1();
        updateThreshold(plant, 50);
      }else{
@@ -161,10 +161,10 @@ import 'package:noa/models/plant.dart';
      }
    }
    void thresholdCheckForBox2(plant){
-     if (plant.soilHumidity > 69) {
+     if (plant.soilHumidity > 70) {
        setTreshold70ForBox2();
        updateThreshold(plant, 70);
-     } else if ((plant.soilHumidity > 29) & (plant.soilHumidity < 51)) {
+     } else if ((plant.soilHumidity > 29) && (plant.soilHumidity < 71)) {
        setTreshold50ForBox2();
        updateThreshold(plant, 50);
      } else {
@@ -173,10 +173,10 @@ import 'package:noa/models/plant.dart';
      }}
 
    void thresholdCheckForBox3(plant){
-     if (plant.soilHumidity > 69) {
+     if (plant.soilHumidity > 70) {
        setTreshold70ForBox3();
        updateThreshold(plant, 70);
-     } else if ((plant.soilHumidity > 29) & (plant.soilHumidity < 51)) {
+     } else if ((plant.soilHumidity > 29) && (plant.soilHumidity < 71)) {
        setTreshold50ForBox3();
        updateThreshold(plant, 50);
      } else {
@@ -188,7 +188,7 @@ import 'package:noa/models/plant.dart';
      if(plant.soilHumidity>69){
        setTreshold70ForBox4();
        updateThreshold(plant, 70);
-     }else if((plant.soilHumidity>29)&(plant.soilHumidity<51)){
+     }else if((plant.soilHumidity>29)&&(plant.soilHumidity<71)){
        setTreshold50ForBox4();
        updateThreshold(plant, 50);
      }else{

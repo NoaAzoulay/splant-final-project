@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:noa/common_widgets/BottomNavigationBar.dart';
+import 'package:noa/customWidgets/BottomNavigationBar.dart';
 import 'package:noa/services/Auth.dart';
 import 'package:noa/services/DataBase.dart';
 import 'package:noa/services/signIn/sign_in_up.dart';

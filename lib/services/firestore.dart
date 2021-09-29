@@ -7,7 +7,6 @@ class FirestoreDB {
   static final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   User currentU= FirebaseAuth.instance.currentUser;
   static final plantsDB = firebaseFirestore.collection('plants');
-  static final usersDB = firebaseFirestore.collection('users');
   static final userPlants = firebaseFirestore.collection('users').doc().collection('plants');
 
   static Future<List<Plant>> getPlants() async {

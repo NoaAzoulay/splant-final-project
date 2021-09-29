@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:noa/common_widgets/FormedSubmitButton.dart';
-import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
+import 'package:noa/customWidgets/FormedSubmitButton.dart';
+import 'package:noa/customWidgets/showExceptionAlertDialog.dart';
 import 'package:noa/services/Auth.dart';
 import 'package:provider/provider.dart';
 import 'EmailSignInChangeModel.dart';

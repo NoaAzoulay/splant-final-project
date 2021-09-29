@@ -22,23 +22,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
-        actions: [],
-        title: Row(
-          children: [
-            Text(
-              'Splant',
-              style: TextStyle(
-                  color: Colors.white, fontFamily: 'IndieFlower', fontSize: 30),
-            ),
-            Icon(FontAwesomeIcons.leaf,
-              size: 12,
-              color: Colors.white70,
-            )
-          ],
-        ),
-        backgroundColor: Colors.green,
-      ),
       //saving states of pages
       body: IndexedStack(
         children: screens,

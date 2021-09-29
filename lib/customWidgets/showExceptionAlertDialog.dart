@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
-import 'package:noa/common_widgets/showAlertDialog.dart';
+import 'package:noa/customWidgets/showAlertDialog.dart';
 
 Future<void> showExceptionAlertDialog(
   BuildContext context,{

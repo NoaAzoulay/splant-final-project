@@ -3,9 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
+import 'package:noa/customWidgets/showExceptionAlertDialog.dart';
 import 'package:noa/models/plant.dart';
-import 'package:noa/models/user.dart';
 import 'package:noa/screens/plants/plantsDetailsCard.dart';
 import 'package:noa/services/DataBase.dart';
 import 'package:noa/services/myClient.dart';
@@ -162,7 +161,10 @@ class _AddPlantState extends State<AddPlant> {
         buttons: [
           DialogButton(
             color: Colors.green[800],
-            onPressed: () => addPlantToUserList(plants[i], serialNum),
+            onPressed: () => {
+              addPlantToUserList(plants[i], serialNum),
+              Navigator.of(context).pop(),
+            },
             child: Text(
               "submit",
               style: TextStyle(

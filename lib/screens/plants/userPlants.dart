@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:noa/common_widgets/showExceptionAlertDialog.dart';
+import 'package:noa/customWidgets/showExceptionAlertDialog.dart';
 import 'package:noa/screens/plants/addPlantPage.dart';
 import 'package:noa/screens/plants/plantActionsPage.dart';
 import 'package:noa/services/DataBase.dart';
@@ -19,10 +19,7 @@ class UsersPlants extends StatefulWidget {
 }
 
 class _UsersPlantsState extends State<UsersPlants> {
-  //final width = window.physicalSize.width;
   MyClient client= MyClient.instance;
-
-  //final height = window.physicalSize.height;
 
   @override
   Widget build(BuildContext context) {
@@ -54,140 +51,158 @@ class _UsersPlantsState extends State<UsersPlants> {
         if(snapshot.hasData) {
           final plants = snapshot.data;
           //the way plants will be shown
-          return GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              childAspectRatio: 2/1,
-              mainAxisSpacing: 15,
+          return Scaffold(
+            appBar: AppBar(
+              title: Row(
+                children: [
+                  Text(
+                    'Splant',
+                    style: TextStyle(
+                        color: Colors.white, fontFamily: 'IndieFlower', fontSize: 30),
+                  ),
+                  Icon(FontAwesomeIcons.leaf,
+                    size: 12,
+                    color: Colors.white70,
+                  )
+                ],
+              ),
+              backgroundColor: Colors.green,
             ),
-            itemCount: plants.length,
-            itemBuilder: (context, i) => SafeArea(
-              child: SingleChildScrollView(
-                child: Dismissible(
-                  background: Container(color: Colors.grey,
-                  child: Icon(Icons.delete_outline,
-                    size: 40,
-                  ),),
-                  direction: DismissDirection.endToStart,
-                  key: Key('plant-${plants[i].id}'),
-                  onDismissed: (direction){
-                    _delete(context, plants[i]);
-                    client.notifyServerFlowerBoxDeleted(plants[i].serial);
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.brown[200], width: 2),
-                    color: Colors.white,
-                    ),
-                    child: GridTile(
-                        child: Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: Colors.brown[200], width: 3),
-                                  image: DecorationImage(
-                                      image: NetworkImage(plants[i].image),
-                                      fit: BoxFit.cover,
-                                  ),
+            body: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                childAspectRatio: 2/1,
+                mainAxisSpacing: 15,
+              ),
+              itemCount: plants.length,
+              itemBuilder: (context, i) => SafeArea(
+                child: SingleChildScrollView(
+                  child: Dismissible(
+                    background: Container(color: Colors.grey,
+                    child: Icon(Icons.delete_outline,
+                      size: 40,
+                    ),),
+                    direction: DismissDirection.endToStart,
+                    key: Key('plant-${plants[i].id}'),
+                    onDismissed: (direction){
+                      _delete(context, plants[i]);
+                      client.notifyServerFlowerBoxDeleted(plants[i].serial);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.brown[200], width: 2),
+                      color: Colors.white,
                       ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 150),
-                                    child: Text(
-                                        plants[i].name,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: 'IndieFlower',
-                                          color: Colors.brown[50],
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 2,
-                                         decorationStyle: TextDecorationStyle.wavy,
+                      child: GridTile(
+                          child: Container(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(color: Colors.brown[200], width: 3),
+                                    image: DecorationImage(
+                                        image: NetworkImage(plants[i].image),
+                                        fit: BoxFit.cover,
+                                    ),
+                        ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 150),
+                                      child: Text(
+                                          plants[i].name,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'IndieFlower',
+                                            color: Colors.brown[50],
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 2,
+                                           decorationStyle: TextDecorationStyle.wavy,
+                                          ),
                                         ),
-                                      ),
-                                  ),
-                                ),
-                                ),
-                                //Todo sensors data
-                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: Colors.white60,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          SizedBox(height: 2,),
-                                          Tooltip(
-                                            message: 'soil humidity',
-                                            textStyle: tooltipTextStyle(),
-                                            child: CircleAvatar(
-                                              child: Icon(FontAwesomeIcons.fillDrip,
-                                                      size: 20,
-                                                      color: Colors.black87,),
-                                            ),
-                                          ),
-                                              Text(
-                                                plants[i].soilHumidity.toString()+' %',
-                                                style: textStyle(),
-                                              ),
-                                          SizedBox(height: 2,),
-                                          Tooltip(message: 'sun / uv in range 1-5',
-                                            textStyle: tooltipTextStyle(),
-                                            child:
-                                            CircleAvatar(
-                                              backgroundColor: Colors.yellowAccent[100],
-                                              child: Icon(FontAwesomeIcons.sun,
-                                                size: 23,
-                                                color: Colors.black87,),
-                                            ),
-                                          ),
-                                          Text(plants[i].uv.toString(),
-                                              style: textStyle(),),
-                                          SizedBox(height: 2,),
-                                          Tooltip(message: 'temperature',
-                                            textStyle: tooltipTextStyle(),
-                                            child:
-                                            CircleAvatar(
-                                              backgroundColor: Colors.orangeAccent[100],
-                                              child: Icon(FontAwesomeIcons.thermometerEmpty,
-                                                size: 23,
-                                                color: Colors.black87,),
-                                            ),
-                                          ),
-                                          Text(plants[i].tmp.toString()+' C',
-                                              style: textStyle()),
-                                        ],
-                                      ),
                                     ),
                                   ),
-                                Padding(
-                                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: IconButton(
-                                    //TODO
-                                      onPressed: ()=>
-                                          Navigator.push(context,
-                                              new MaterialPageRoute(
-                                                builder: (context) => PlantActionsPage(plant: plants[i]) ),
-                                          ),
-                                      icon: Icon(Icons.double_arrow)),
-                                ),
-                              ],
+                                  ),
+                                  //Todo sensors data
+                                     Padding(
+                                      padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: Colors.white60,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            SizedBox(height: 2,),
+                                            Tooltip(
+                                              message: 'soil humidity',
+                                              textStyle: tooltipTextStyle(),
+                                              child: CircleAvatar(
+                                                child: Icon(FontAwesomeIcons.fillDrip,
+                                                        size: 20,
+                                                        color: Colors.black87,),
+                                              ),
+                                            ),
+                                                Text(
+                                                  plants[i].soilHumidity.toString()+' %',
+                                                  style: textStyle(),
+                                                ),
+                                            SizedBox(height: 2,),
+                                            Tooltip(message: 'sun / uv in range 1-5',
+                                              textStyle: tooltipTextStyle(),
+                                              child:
+                                              CircleAvatar(
+                                                backgroundColor: Colors.yellowAccent[100],
+                                                child: Icon(FontAwesomeIcons.sun,
+                                                  size: 23,
+                                                  color: Colors.black87,),
+                                              ),
+                                            ),
+                                            Text(plants[i].uv.toString(),
+                                                style: textStyle(),),
+                                            SizedBox(height: 2,),
+                                            Tooltip(message: 'temperature',
+                                              textStyle: tooltipTextStyle(),
+                                              child:
+                                              CircleAvatar(
+                                                backgroundColor: Colors.orangeAccent[100],
+                                                child: Icon(FontAwesomeIcons.thermometerEmpty,
+                                                  size: 23,
+                                                  color: Colors.black87,),
+                                              ),
+                                            ),
+                                            Text(plants[i].tmp.toString()+' C',
+                                                style: textStyle()),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  Padding(
+                                      padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    child: IconButton(
+                                      //TODO
+                                        onPressed: ()=>
+                                            Navigator.push(context,
+                                                new MaterialPageRoute(
+                                                  builder: (context) => PlantActionsPage(plant: plants[i]) ),
+                                            ),
+                                        icon: Icon(Icons.double_arrow)),
+                                  ),
+                                ],
+                            ),
                           ),
                         ),
-                      ),
+                    ),
                   ),
                 ),
-              ),
-                    )
-              );
+                      )
+                ),
+          );
 
         }
 
