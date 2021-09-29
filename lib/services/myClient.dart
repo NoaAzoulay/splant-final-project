@@ -2,12 +2,11 @@ import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' as http;
 import 'package:noa/models/plant.dart';
 
 
 
- class MyClient  {
+ class MyClient {
    Plant plant;
    User currentUser = FirebaseAuth.instance.currentUser;
    CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -18,7 +17,6 @@ import 'package:noa/models/plant.dart';
     static final instance =MyClient._();
 
     void httpGetReqFromServer(String req) {
-     // String localhost = "192.168.14.114";
       HttpClient client = new HttpClient();
       var response = client.getUrl(new Uri.http(localhost, req)).then((
           HttpClientRequest request) {
@@ -27,16 +25,6 @@ import 'package:noa/models/plant.dart';
       print(response);
     }
 
-    void exHttpGetReqFromServer() {
-     // String localhost = "192.168.14.114";
-      //String localhost = "192.168.14.34";
-      HttpClient client = new HttpClient();
-      var response = client.getUrl(new Uri.http(localhost, "/myDIV_30")).then((
-          HttpClientRequest request) {
-        return request.close();
-      });
-      print(response);
-    }
 
     void notifyServerFlowerBoxDeleted(String num) {
       switch (num) {
