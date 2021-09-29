@@ -12,7 +12,7 @@ import 'package:eventsource/eventsource.dart';
 
 void main() async{
   print('main');
-  var eventSource =  await EventSource.connect("http://192.168.14.34/events");
+  var eventSource =  await EventSource.connect("http://192.168.14.114/events");
   Future.delayed(Duration(seconds: 10),() {
     eventSource.where((e) => e.event == "status_readings").listen((event) {
       ServerDataJson().parseData(event.data);
