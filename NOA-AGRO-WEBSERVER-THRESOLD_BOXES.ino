@@ -16,8 +16,8 @@
  
 
 // Replace with your network credentials
-    const char* ssid = "JENNY12";
-    const char* password = "24071960";
+    const char* ssid = "";
+    const char* password = "";
 
 //====================================================
 //#define I2C_SDA 21
