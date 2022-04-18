@@ -185,7 +185,6 @@ class _UsersPlantsState extends State<UsersPlants> {
                                   Padding(
                                       padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                                     child: IconButton(
-                                      //TODO
                                         onPressed: ()=>
                                             Navigator.push(context,
                                                 new MaterialPageRoute(
