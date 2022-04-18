@@ -127,7 +127,7 @@ class _UsersPlantsState extends State<UsersPlants> {
                                     ),
                                   ),
                                   ),
-                                  //Todo sensors data
+                                  
                                      Padding(
                                       padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
                                       child: Container(
